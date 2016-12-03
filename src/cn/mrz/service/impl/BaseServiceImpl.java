@@ -2,10 +2,12 @@ package cn.mrz.service.impl;
 
 import cn.mrz.dao.BaseDao;
 import cn.mrz.service.BaseService;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by Administrator on 2016/12/1.
  */
+@Transactional
 public abstract class BaseServiceImpl<T> implements BaseService<T> {
 
     /**

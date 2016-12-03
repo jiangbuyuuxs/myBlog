@@ -4,9 +4,10 @@ package cn.mrz.pojo;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.sql.Blob;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Created by Administrator on 2016/12/1.
@@ -18,12 +19,13 @@ public class Blogs {
     private String title;
     private Date cdate;
     private Date edate;
-    @Type(type = "blob")
+    @Type(type = "text")
     private String texts;
     private long imgid;
     private int classtype;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }

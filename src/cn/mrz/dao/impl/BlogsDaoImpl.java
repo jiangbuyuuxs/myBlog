@@ -16,7 +16,7 @@ import java.util.List;
 public class BlogsDaoImpl extends BaseDaoImpl<Blogs> implements BlogsDao {
     final static String AEC = "asc";
     final static String DESC = "desc";
-    final static String[] cols = {"title","cdate","edate","classtype"};
+    final static String[] cols = {"cdate","title","edate","classtype"};
 
     @Override
     public Blogs has(long id) {
@@ -40,15 +40,15 @@ public class BlogsDaoImpl extends BaseDaoImpl<Blogs> implements BlogsDao {
 
     private String getOrderStr(int sortByCode){
         StringBuffer orderStr = new StringBuffer(" order by ");
-        String[] sortForwards = {AEC,AEC,AEC,AEC};
+        String[] sortForwards = {DESC,DESC,DESC,DESC};
         if((sortByCode&1)==1)
-            sortForwards[0] = DESC;
+            sortForwards[0] = AEC;
         if((sortByCode&2)==2)
-            sortForwards[1] = DESC;
+            sortForwards[1] = AEC;
         if((sortByCode&4)==4)
-            sortForwards[2] = DESC;
+            sortForwards[2] = AEC;
         if((sortByCode&8)==8)
-            sortForwards[3] = DESC;
+            sortForwards[3] = AEC;
         for (int i = 0; i < 4; i++) {
             orderStr.append(cols[i]).append(" ").append(sortForwards[i]).append(",");
         }
