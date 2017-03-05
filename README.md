@@ -4,3 +4,6 @@
 * 数据库 mysql5.7 驱动版本mysql-connector-java-5.1.40
 * 在线编辑器 百度编辑器ueditor1.4.3.3
 * 容器 tomcat7 额外需要jstl支持
+* Spring MVC 
+* Spring Security4.2.2GA 
+* Jackson1.9.3
