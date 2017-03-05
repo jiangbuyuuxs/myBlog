@@ -35,8 +35,13 @@ public class BlogsServiceImpl extends BaseServiceImpl<Blogs> implements BlogsSer
     public List<Blogs> showBlogs(int start,int num,String orderByNum){
         if(orderByNum==null)
             orderByNum = "0";
-        Integer integer = Integer.valueOf(orderByNum, 2);
-        return blogsDaoImpl.getBlogs(start,num,integer);
+        int integer = Integer.valueOf(orderByNum, 2);
+        return blogsDaoImpl.getBlogsWithoutContent(start, num, integer);
+    }
+
+    @Override
+    public int getBlogNums() {
+        return blogsDaoImpl.getCount();
     }
 
 }

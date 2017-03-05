@@ -9,4 +9,6 @@ import java.util.List;
  */
 public interface BlogsService extends BaseService<Blogs> {
     List<Blogs> showBlogs(int start,int num,String orderByNum);
+    int getBlogNums();
+
 }

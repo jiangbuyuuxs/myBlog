@@ -21,7 +21,7 @@ public class BlogsDaoImpl extends BaseDaoImpl<Blogs> implements BlogsDao {
     @Override
     public Blogs has(long id) {
         Session session = currentSession();
-        List<Blogs> list = session.createQuery("from Blogs where id=?").setParameter(0, id).list();
+        List<Blogs> list = session.createQuery("from Blogs blogs where blogs.id=:id").setParameter("id", id).list();
         if(list.size()==0)
             return null;
         else
@@ -37,8 +37,19 @@ public class BlogsDaoImpl extends BaseDaoImpl<Blogs> implements BlogsDao {
         List<Blogs> list = query.list();
         return list;
     }
+    public List<Blogs> getBlogsWithoutContent(int start,int num,int sortBy){
+        Session session = currentSession();
+        String orderStr = getOrderStr(sortBy);
+        Query query = session.createQuery("select new Blogs(id,title,cdate,edate,imgid,classtype) from Blogs"+orderStr);
+        query.setFirstResult(start);
+        query.setMaxResults(num);
+        List<Blogs> list = query.list();
+        return list;
+    }
 
     private String getOrderStr(int sortByCode){
+        if(sortByCode==0)
+            return "";
         StringBuffer orderStr = new StringBuffer(" order by ");
         String[] sortForwards = {DESC,DESC,DESC,DESC};
         if((sortByCode&1)==1)

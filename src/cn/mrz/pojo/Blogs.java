@@ -24,6 +24,18 @@ public class Blogs {
     private long imgid;
     private int classtype;
 
+    public Blogs(){
+
+    }
+
+    public Blogs(long id,String title,Date cdate,Date edate,long imgid,int classtype){
+        this.id = id;
+        this.title = title;
+        this.cdate = cdate;
+        this.edate = edate;
+        this.imgid = imgid;
+        this.classtype = classtype;
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {

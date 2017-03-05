@@ -10,5 +10,6 @@ import java.util.List;
  */
 public interface BlogsDao extends BaseDao<Blogs> {
     public abstract List<Blogs> getBlogs(int start,int num,int sortBy);
+    public abstract List<Blogs> getBlogsWithoutContent(int start,int num,int sortBy);
 
 }

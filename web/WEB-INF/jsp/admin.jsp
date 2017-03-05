@@ -20,7 +20,7 @@
 </p>
 
 <p>
-    <input type="submit" value="go" placeholder="最喜欢的电影"/>
+    <input type="submit" value="go"/>
 </p>
 
 </body>
