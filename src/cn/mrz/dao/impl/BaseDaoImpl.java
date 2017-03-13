@@ -4,8 +4,8 @@ import cn.mrz.dao.BaseDao;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.orm.hibernate5.HibernateCallback;
-import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate4.HibernateCallback;
+import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 
 import javax.annotation.Resource;
 import java.lang.reflect.ParameterizedType;
@@ -33,7 +33,9 @@ public abstract class BaseDaoImpl<T> extends HibernateDaoSupport implements Base
     }
 
     public T get(long id) {
+        //TODO get越过二级缓存
         return (T) this.getHibernateTemplate().get(entityClass, id);
+        //return (T) this.getHibernateTemplate().load(entityClass, id);
     }
 
     public void add(T t) {

@@ -42,6 +42,7 @@
   </script>
 </head>
 <body>
+<%@include file="comm/loginstatebar.jsp" %>
 <p>${oper}</p>
 <p>
   <input type="text" class="title" name="title" placeholder="标题哦" value="${blogs.title}">

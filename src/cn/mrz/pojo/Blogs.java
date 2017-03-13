@@ -1,18 +1,18 @@
 package cn.mrz.pojo;
 
-
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.Cache;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * Created by Administrator on 2016/12/1.
  */
 @Entity
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+//TODO 这里的缓存方式还需要进一步了解
 public class Blogs {
 
     private long id;

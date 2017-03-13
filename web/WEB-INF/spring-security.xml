@@ -12,17 +12,19 @@
               <!--<security:intercept-url pattern="/go/logon" access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
               <!--<security:intercept-url pattern="/admin/*" access="ROLE_ADMIN"/>-->
               <!--<security:intercept-url pattern="/**" access="ROLE_USER,ROLE_ADMIN"/>-->
-              <security:intercept-url pattern="/go/logon" access="true"/>
-              <security:intercept-url pattern="/resources/**" access="true"/>
+              <!--<security:intercept-url pattern="/go/logon" access="true"/>-->
+              <!--<security:intercept-url pattern="/resources/**" access="true"/>-->
               <security:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/>
-              <security:intercept-url pattern="/**" access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')"/>
+              <!--<security:intercept-url pattern="/**" access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')"/>-->
               <security:form-login login-page="/go/logon"
                                    login-processing-url="/login" username-parameter="username"
                                    password-parameter="password" />
               <!--Could not verify the provided CSRF token because your session was not found.-->
               <security:csrf disabled="true" />
               <security:access-denied-handler error-page="/go/forbidden" />
+              <security:logout logout-url="/logout" logout-success-url="/" />
        </security:http>
+
        <!-- 认证成功后的处理类-->
        <bean id="authSuccess" class="cn.mrz.security.AuthenticationSuccessHandlerImpl"/>
 

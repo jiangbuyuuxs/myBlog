@@ -50,7 +50,7 @@
 <!--与hibernate整合后,getCurrentSession()-->
     <filter>
         <filter-name>SpringOpenSessionInViewFilter</filter-name>
-        <filter-class>org.springframework.orm.hibernate5.support.OpenSessionInViewFilter</filter-class>
+        <filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>SpringOpenSessionInViewFilter</filter-name>

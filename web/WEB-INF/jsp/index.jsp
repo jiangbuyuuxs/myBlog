@@ -26,12 +26,19 @@
             transform: rotateY(180deg);
         }
 
+        .head-img-container {
+            width: 125px;
+            height: 125px;
+            margin: 0 auto;
+            background: url("/resources/img/head.jpg") center no-repeat;;
+        }
+
         /*.indexheadimg2 {*/
         /*background-image: url("/resources/img/index2.jpg")*/
         /*}*/
 
         .blog-list {
-            min-height: 240px;
+            min-height: 600px;
         }
     </style>
     <script>
@@ -128,7 +135,8 @@
                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-8 title"><a title="${blog.title}"
                                                                                   href="/detail/${blog.id}/id">${blog.title}</a>
                         </div>
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4"><fmt:formatDate value="${blog.cdate}" pattern="yyyy-MM-dd HH:mm:ss"/></div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4"><fmt:formatDate value="${blog.cdate}"
+                                                                                         pattern="yyyy-MM-dd HH:mm:ss"/></div>
                     </div>
                 </c:forEach>
             </div>
@@ -150,7 +158,10 @@
             </div>
         </div>
         <div class="col-lg-2 col-md-2 hidden-xs hidden-sm col-sm-0 col-xs-0">
-            这是右边栏
+            <div class="row">
+                <div class="head-img-container">
+                </div>
+            </div>
         </div>
     </div>
 </div>

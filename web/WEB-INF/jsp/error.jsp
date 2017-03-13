@@ -25,7 +25,7 @@
     <a class="btn btn-default" href="/">首页</a>
     <a class="btn btn-default back" href="#">上一页</a>
   </div>
-  <div class="hide">
+  <div class="has-error">
     ${ex}
   </div>
 </div>

@@ -2,8 +2,8 @@ package cn.mrz.dao.impl;
 
 import cn.mrz.dao.BlogsDao;
 import cn.mrz.pojo.Blogs;
+import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
 import org.junit.Test;
 import org.springframework.stereotype.Repository;
 
@@ -21,7 +21,8 @@ public class BlogsDaoImpl extends BaseDaoImpl<Blogs> implements BlogsDao {
     @Override
     public Blogs has(long id) {
         Session session = currentSession();
-        List<Blogs> list = session.createQuery("from Blogs blogs where blogs.id=:id").setParameter("id", id).list();
+        //List<Blogs> list = session.createQuery("from Blogs blogs where blogs.id=:id").setCacheable(true).setCacheRegion("queryCacheRegion").setParameter("id", id).list();
+        List<Blogs> list = session.createQuery("from Blogs blogs where blogs.id=:id").setCacheable(true).setParameter("id", id).list();
         if(list.size()==0)
             return null;
         else
@@ -31,7 +32,7 @@ public class BlogsDaoImpl extends BaseDaoImpl<Blogs> implements BlogsDao {
     public List<Blogs> getBlogs(int start,int num,int sortBy){
         Session session = currentSession();
         String orderStr = getOrderStr(sortBy);
-        Query query = session.createQuery("from Blogs"+orderStr);
+        Query query = session.createQuery("from Blogs"+orderStr).setCacheable(true);
         query.setFirstResult(start);
         query.setMaxResults(num);
         List<Blogs> list = query.list();
@@ -40,7 +41,7 @@ public class BlogsDaoImpl extends BaseDaoImpl<Blogs> implements BlogsDao {
     public List<Blogs> getBlogsWithoutContent(int start,int num,int sortBy){
         Session session = currentSession();
         String orderStr = getOrderStr(sortBy);
-        Query query = session.createQuery("select new Blogs(id,title,cdate,edate,imgid,classtype) from Blogs"+orderStr);
+        Query query = session.createQuery("select new Blogs(id,title,cdate,edate,imgid,classtype) from Blogs"+orderStr).setCacheable(true);
         query.setFirstResult(start);
         query.setMaxResults(num);
         List<Blogs> list = query.list();

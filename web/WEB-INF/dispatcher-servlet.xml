@@ -16,7 +16,7 @@
     </bean>
     <!--自动扫描注解-->
     <context:component-scan base-package="cn.mrz.controller" />
-    <!-- springmvc传json值时的乱码解决 -->
+
     <mvc:annotation-driven/>
     <!--
     <mvc:resources location="/" mapping="/**/*.html"/>
