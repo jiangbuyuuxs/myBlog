@@ -1,12 +1,16 @@
 package cn.mrz.security;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collection;
 
 /**
  * Created by Administrator on 2017/3/5.
@@ -17,7 +21,20 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
                                        HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException {
         //TODO 根据登录用户权限不同,重定向到不同的页面
-        response.sendRedirect(request.getContextPath());
+        UserDetails user = (UserDetails)authentication.getPrincipal();
+        String username = user.getUsername();
+        //获取认证信息
+        Collection<? extends GrantedAuthority> auths = user.getAuthorities();
+        String result = "";
+        Object[] ats = auths.toArray();
+        for(int i=0; i<ats.length; i++){
+            if(((GrantedAuthority)ats[i]).getAuthority().toLowerCase().contains("admin")){
+                response.sendRedirect("/admin/admin");
+                return;
+            }
+        }
+//        response.sendRedirect(request.getContextPath());
+        response.sendRedirect("/");
     }
 
 }

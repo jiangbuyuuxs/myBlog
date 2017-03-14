@@ -4,10 +4,12 @@ import cn.mrz.dao.BaseDao;
 import cn.mrz.dao.BlogsDao;
 import cn.mrz.pojo.Blogs;
 import cn.mrz.service.BlogsService;
+import cn.mrz.task.Hotwords;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2016/12/1.
@@ -42,6 +44,18 @@ public class BlogsServiceImpl extends BaseServiceImpl<Blogs> implements BlogsSer
     @Override
     public int getBlogNums() {
         return blogsDaoImpl.getCount();
+    }
+
+    @Override
+    public Map<String, Integer> getHotwords() {
+        int blogNums = getBlogNums();
+        List<Blogs> blogs = showBlogs(0, blogNums, null);
+        Hotwords hotwords = new Hotwords();
+        for (Blogs blog:blogs){
+            hotwords.addText(blog.getTexts());
+            hotwords.addText(blog.getTitle());
+        }
+        return hotwords.getHotwards();
     }
 
 }

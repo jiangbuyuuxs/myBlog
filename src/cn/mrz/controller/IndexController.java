@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class IndexController {
@@ -62,13 +63,13 @@ public class IndexController {
      */
     @RequestMapping(value = {"/admin/admin"})
     public String goAdmin() {
-        return "/admin";
+        return "/admin/admin";
     }
 
     @RequestMapping(value = {"/admin/add"})
     public String goNew(ModelMap map) {
         map.addAttribute("oper", "新增博文");
-        return "/editpage";
+        return "/admin/editpage";
     }
 
     @RequestMapping(value = "/detail/{id}/id")
@@ -83,7 +84,7 @@ public class IndexController {
         //TODO 当前用户是否有权限查看该博文
 
         if (blog == null)
-            return "redirect:/index";
+            return "redirect:/go/error";
         map.addAttribute("blog", blog);
         return "/detail";
     }
@@ -105,4 +106,10 @@ public class IndexController {
         return "/"+pageName;
     }
 
+    @RequestMapping(value = {"/hotwords"})
+    public String goPage(ModelMap map) {
+        Map<String, Integer> hotwords = blogsService.getHotwords();
+        map.addAttribute("hotwords", hotwords);
+        return "/hotwords";
+    }
 }
