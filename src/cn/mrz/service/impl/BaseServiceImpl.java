@@ -20,8 +20,8 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
         return getBaseDao().has(id);
     }
 
-    public void add(T t) {
-        getBaseDao().add(t);
+    public T add(T t) {
+        return getBaseDao().add(t);
     }
 
     public void upd(T t) {

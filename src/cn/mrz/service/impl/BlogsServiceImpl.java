@@ -1,13 +1,16 @@
 package cn.mrz.service.impl;
 
 import cn.mrz.dao.BaseDao;
-import cn.mrz.dao.BlogsDao;
-import cn.mrz.pojo.Blogs;
+import cn.mrz.dao.BlogDao;
+import cn.mrz.dao.VisitDao;
+import cn.mrz.pojo.Blog;
+import cn.mrz.pojo.Visit;
 import cn.mrz.service.BlogsService;
 import cn.mrz.task.Hotwords;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,47 +18,84 @@ import java.util.Map;
  * Created by Administrator on 2016/12/1.
  */
 @Service
-public class BlogsServiceImpl extends BaseServiceImpl<Blogs> implements BlogsService{
+public class BlogsServiceImpl extends BaseServiceImpl<Blog> implements BlogsService {
     @Autowired
-    private BlogsDao blogsDaoImpl;
+    private BlogDao blogDaoImpl;
+
+    @Autowired
+    private VisitDao visitDaoImpl;
 
     /**
      * 向接口传递DaoImpl
+     *
      * @return
      */
     @Override
-    public BaseDao<Blogs> getBaseDao() {
-            return blogsDaoImpl;
+    public BaseDao<Blog> getBaseDao() {
+        return blogDaoImpl;
     }
 
     /**
      * 获取文章列表信息
+     *
      * @param start 开始篇数
-     * @param num 总篇数
-     * @return 博文信息,不包含
+     * @param num   总篇数
+     * @return 博文信息, 不包含
      */
-    public List<Blogs> showBlogs(int start,int num,String orderByNum){
-        if(orderByNum==null)
+    public List<Blog> getBlogs(int start, int num, String orderByNum, boolean hasContent) {
+        if (orderByNum == null)
             orderByNum = "0";
         int integer = Integer.valueOf(orderByNum, 2);
-        return blogsDaoImpl.getBlogsWithoutContent(start, num, integer);
+        if (!hasContent)
+            return blogDaoImpl.getBlogsWithoutContent(start, num, integer);
+        else
+            return blogDaoImpl.getBlogs(start, num, integer);
     }
 
     @Override
     public int getBlogNums() {
-        return blogsDaoImpl.getCount();
+        return blogDaoImpl.getCount();
     }
 
     @Override
-    public Map<String, Integer> getHotwords() {
-        int blogNums = getBlogNums();
-        List<Blogs> blogs = showBlogs(0, blogNums, null);
-        Hotwords hotwords = new Hotwords();
-        for (Blogs blog:blogs){
-            hotwords.addText(blog.getTexts());
-            hotwords.addText(blog.getTitle());
+    public boolean addVisit(long blogid) {
+        try {
+            Visit visit = visitDaoImpl.has(blogid);
+            if (null == visit) {
+                visit = new Visit();
+                visit.setBlogid(blogid);
+                visit.setNum(1);
+            } else {
+                visit.setNum(visit.getNum() + 1);
+            }
+            visitDaoImpl.add(visit);
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return false;
         }
-        return hotwords.getHotwards();
+        return true;
     }
+
+    @Override
+    public void addBlog(Blog blog) {
+        Blog add = blogDaoImpl.add(blog);
+        Visit visit = new Visit();
+        visit.setBlogid(add.getId());
+        visit.setNum(0);
+        visitDaoImpl.add(visit);
+    }
+
+    @Override
+    public List<Blog> getHotBlogs(int blogNums) {
+        List<Visit> hotBlogs = visitDaoImpl.getHotBlog(blogNums);
+        ArrayList<Blog> blogs = new ArrayList<Blog>();
+        for (Visit hotBlog : hotBlogs) {
+            long blogid = hotBlog.getBlogid();
+            Blog has = blogDaoImpl.has(blogid);
+            blogs.add(has);
+        }
+        return blogs;
+    }
+
 
 }

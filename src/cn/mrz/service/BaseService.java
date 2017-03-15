@@ -5,7 +5,7 @@ package cn.mrz.service;
  */
 public interface BaseService<T> {
     public T getById(long id);
-    void add(T t);
+    T add(T t);
     void upd(T t);
     void del(T t);
 }

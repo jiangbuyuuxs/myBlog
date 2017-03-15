@@ -6,7 +6,7 @@ package cn.mrz.dao;
 public interface BaseDao<T> {
     T has(long id);
     int getCount();
-    void add(T t);
+    T add(T t);
     void upd(T t);
     void del(T t);
 }

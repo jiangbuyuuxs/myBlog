@@ -1,7 +1,7 @@
 package cn.mrz.dao.impl;
 
-import cn.mrz.dao.BlogsDao;
-import cn.mrz.pojo.Blogs;
+import cn.mrz.dao.BlogDao;
+import cn.mrz.pojo.Blog;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.junit.Test;
@@ -13,38 +13,38 @@ import java.util.List;
  * Created by Administrator on 2016/12/1.
  */
 @Repository
-public class BlogsDaoImpl extends BaseDaoImpl<Blogs> implements BlogsDao {
+public class BlogDaoImpl extends BaseDaoImpl<Blog> implements BlogDao {
     final static String AEC = "asc";
     final static String DESC = "desc";
     final static String[] cols = {"cdate","title","edate","classtype"};
 
     @Override
-    public Blogs has(long id) {
+    public Blog has(long id) {
         Session session = currentSession();
         //List<Blogs> list = session.createQuery("from Blogs blogs where blogs.id=:id").setCacheable(true).setCacheRegion("queryCacheRegion").setParameter("id", id).list();
-        List<Blogs> list = session.createQuery("from Blogs blogs where blogs.id=:id").setCacheable(true).setParameter("id", id).list();
+        List<Blog> list = session.createQuery("from Blog blogs where blogs.id=:id").setCacheable(true).setParameter("id", id).list();
         if(list.size()==0)
             return null;
         else
             return list.get(0);
     }
 
-    public List<Blogs> getBlogs(int start,int num,int sortBy){
+    public List<Blog> getBlogs(int start,int num,int sortBy){
         Session session = currentSession();
         String orderStr = getOrderStr(sortBy);
-        Query query = session.createQuery("from Blogs"+orderStr).setCacheable(true);
+        Query query = session.createQuery("from Blog"+orderStr).setCacheable(true);
         query.setFirstResult(start);
         query.setMaxResults(num);
-        List<Blogs> list = query.list();
+        List<Blog> list = query.list();
         return list;
     }
-    public List<Blogs> getBlogsWithoutContent(int start,int num,int sortBy){
+    public List<Blog> getBlogsWithoutContent(int start,int num,int sortBy){
         Session session = currentSession();
         String orderStr = getOrderStr(sortBy);
-        Query query = session.createQuery("select new Blogs(id,title,cdate,edate,imgid,classtype) from Blogs"+orderStr).setCacheable(true);
+        Query query = session.createQuery("select new Blog(id,title,cdate,edate,imgid,classtype) from Blog"+orderStr).setCacheable(true);
         query.setFirstResult(start);
         query.setMaxResults(num);
-        List<Blogs> list = query.list();
+        List<Blog> list = query.list();
         return list;
     }
 

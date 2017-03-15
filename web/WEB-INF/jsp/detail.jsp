@@ -27,5 +27,6 @@
 </div>
 <h2>${blog.title}<small>${blog.cdate}</small></h2>
 <div class="highlight">${blog.texts}</div>
+<script type="text/javascript" charset="utf-8" src="/visitblog/${blog.id}"></script>
 </body>
 </html>

@@ -8,6 +8,7 @@ import org.springframework.orm.hibernate4.HibernateCallback;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 
 import javax.annotation.Resource;
+import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 
 /**
@@ -17,10 +18,11 @@ public abstract class BaseDaoImpl<T> extends HibernateDaoSupport implements Base
 
     /**
      * 由于使用spring的annotation注入时，HibernateDaoSupport不能注入sessionFactiry和hibernateTemplemet
+     *
      * @param sessionFactory
      */
     @Resource
-    public void setSessionFactory0(SessionFactory sessionFactory){
+    public void setSessionFactory0(SessionFactory sessionFactory) {
         super.setSessionFactory(sessionFactory);
     }
 
@@ -38,8 +40,9 @@ public abstract class BaseDaoImpl<T> extends HibernateDaoSupport implements Base
         //return (T) this.getHibernateTemplate().load(entityClass, id);
     }
 
-    public void add(T t) {
+    public T add(T t) {
         this.getHibernateTemplate().save(t);
+        return t;
     }
 
     public void del(T t) {

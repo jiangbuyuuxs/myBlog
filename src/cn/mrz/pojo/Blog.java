@@ -10,10 +10,11 @@ import java.util.Date;
  * Created by Administrator on 2016/12/1.
  */
 @Entity
+@Table(name = "blogs")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 //TODO 这里的缓存方式还需要进一步了解
-public class Blogs {
+public class Blog {
 
     private long id;
     private String title;
@@ -24,11 +25,11 @@ public class Blogs {
     private long imgid;
     private int classtype;
 
-    public Blogs(){
+    public Blog(){
 
     }
 
-    public Blogs(long id,String title,Date cdate,Date edate,long imgid,int classtype){
+    public Blog(long id, String title, Date cdate, Date edate, long imgid, int classtype){
         this.id = id;
         this.title = title;
         this.cdate = cdate;

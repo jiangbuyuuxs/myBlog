@@ -6,106 +6,9 @@
 <head>
     <title></title>
     <%@include file="comm/head.jsp" %>
-    <style>
-        .title {
-            padding: 2px;
-        }
-
-        .index-head-img {
-            line-height: 200px;
-            margin: 10px -15px;
-            border: 1px solid #aaaaaa;
-            background-image: url("/resources/img/index.jpg");
-            transition: -ms-transform 0.2s ease-out;
-        }
-
-        .index-head-img:hover {
-            transform: rotateY(180deg);
-        }
-
-        .head-img-container {
-            width: 125px;
-            height: 125px;
-            margin: 0 auto;
-            background: url("/resources/img/head.jpg") center no-repeat;;
-        }
-
-        .blog-list {
-            min-height: 400px;
-        }
-
-        .blog-list .row {
-            margin: 10px 0px;
-            padding: 2px;
-            border-radius: 3px;
-        }
-
-        .blog-list-head {
-            margin: 5px 0 0 0;
-        }
-
-        .left-panel {
-            border: solid 1px #cecece;
-        }
-
-        .right-panel {
-            border: solid 1px #cecece;
-        }
-
-        .line1 {
-            background: #dff0d8;
-        }
-
-        .line2 {
-            background: #d9edf7;
-        }
-
-        .line3 {
-            background: #fcf8e3;
-        }
-
-        .line4 {
-            background: #c5f1f3;
-        }
-
-        .user-name {
-            text-align: center;
-        }
-
-        .sp20 {
-            height: 20px;
-        }
-
-        .blog-tag {
-            padding: 5px;
-        }
-
-        .blog-tag a {
-            font: 12px "微软雅黑";
-            border-radius: 5px;
-            border: solid 1px #cecece;
-            text-decoration: none;
-            color: #c2c2c2;
-            word-break: keep-all;
-            padding: 1px;
-            margin: 0 0 3px 0;
-            display: inline-block;
-        }
-
-        .blog-tag a:hover {
-            color: #dcdcdc;
-        }
-        .remark{
-            margin:0 10px;
-        }
-        .fav-title{
-            margin: 0 -10px;
-            background: #d9edf7;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/resources/css/index.css">
     <script>
         $(function () {
-
             var createPagebar = function (blogNums) {
                 var pageSize = 10;//TODO 从后端取
                 var curPage = 1;
@@ -122,7 +25,6 @@
                 $("a[data-page]").on("click", changePage);
                 $("a[aria-label=Previous]").on("click", prePage);
                 $("a[aria-label=Next]").on("click", nextPage);
-
 
                 function prePage() {
                     _changePage(curPage - 1);
@@ -159,8 +61,7 @@
                     })
                 }
             };
-            createPagebar(${blogNums});
-            setTitleBg();
+
             function recreateBlogList(data) {
                 $(".blog-list").empty();
                 for (var i = 0, len = data.length; i < len; i++) {
@@ -177,6 +78,9 @@
                     return "line" + (Math.floor((Math.random() * 4)) + 1);
                 });
             }
+
+            createPagebar(${blogNums});
+            setTitleBg();
         });
     </script>
 </head>
@@ -242,7 +146,7 @@
                 </div>
             </div>
             <div class="row sp20"></div>
-            <div class="row sp20 fav-title">
+            <div class="row sp20 fav-word-title">
                 最喜欢用的词囧囧囧
             </div>
             <div class="row">
@@ -257,6 +161,19 @@
                     <a href="/detail/1/id">aa到底</a>
                     <a href="/detail/1/id">asd方法</a>
                     <a href="/detail/1/id">FFF</a>
+                </div>
+            </div>
+            <div class="row sp20"></div>
+            <div class="row sp20 hot-blog-title">
+                热门博文
+            </div>
+            <div class="row">
+                <div class="top-blog">
+                    <div class="top-blog-list">
+                        <c:forEach items="${hotBlogs}" var="hotBlog">
+                            <p><a href="/detail/${hotBlog.id}/id">${hotBlog.title}</a></p>
+                        </c:forEach>
+                    </div>
                 </div>
             </div>
         </div>

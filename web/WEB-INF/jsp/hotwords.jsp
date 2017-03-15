@@ -5,8 +5,8 @@
     <title></title>
 </head>
 <body>
-<c:forEach items="${hotwords}" var="hotwords">
-<p>${hotwords.key} -- ${hotwords.value}</p>
+<c:forEach items="${hotwords}" var="hotword">
+<p>${hotword.remark} -- ${hotword.num}</p>
 </c:forEach>
 </body>
 </html>

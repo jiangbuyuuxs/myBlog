@@ -1,0 +1,133 @@
+a {
+    text-decoration: none;
+    color: #2f2f2f;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #dcdcdc;
+}
+
+.title {
+    padding: 2px;
+}
+
+.index-head-img {
+    line-height: 200px;
+    margin: 10px -15px;
+    border: 1px solid #aaaaaa;
+    background-image: url("/resources/img/index.jpg");
+    transition: -ms-transform 0.2s ease-out;
+}
+
+.index-head-img:hover {
+    transform: rotateY(180deg);
+}
+
+.head-img-container {
+    width: 125px;
+    height: 125px;
+    margin: 0 auto;
+    background: url("/resources/img/head.jpg") center no-repeat;;
+}
+
+.blog-list {
+    min-height: 400px;
+}
+
+.blog-list .row {
+    margin: 10px 0px;
+    padding: 2px;
+    border-radius: 3px;
+}
+
+.blog-list-head {
+    margin: 5px 0 0 0;
+}
+
+.left-panel {
+}
+
+.right-panel {
+}
+
+.line1 {
+    background: #dff0d8;
+}
+
+.line2 {
+    background: #d9edf7;
+}
+
+.line3 {
+    background: #fcf8e3;
+}
+
+.line4 {
+    background: #c5f1f3;
+}
+
+.user-name {
+    text-align: center;
+}
+
+.sp20 {
+    height: 20px;
+}
+
+.fav-word-title {
+    background: #d9edf7;
+    border-radius: 5px;
+}
+
+.blog-tag {
+    padding: 8px;
+}
+
+.blog-tag a {
+    color: #c2c2c2;
+    font: 12px "微软雅黑";
+    border-radius: 5px;
+    border: solid 1px #cecece;
+    word-break: keep-all;
+    padding: 1px;
+    margin: 0 0 3px 0;
+    display: inline-block;
+}
+
+.remark {
+    margin: 0 10px;
+}
+
+.hot-blog-title{
+    background: rgba(255, 86, 66, 0.63);
+    border-radius: 5px;
+}
+
+.top-blog-list {
+    padding-left: 2px;
+}
+
+.top-blog-list p {
+    margin: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size:12px ;
+    border-bottom: 1px solid rgba(175, 97, 128, 0.73);
+}
+@media (min-width: 768px) {
+    .top-blog-list p {
+        width: 160px;
+    }
+}
+@media (min-width: 992px) {
+    .top-blog-list p {
+        width: 180px;
+    }
+}
+@media (min-width: 1200px) {
+    .top-blog-list p {
+        width: 180px;
+    }
+}
