@@ -11,5 +11,8 @@ import java.util.List;
 public interface WordService extends BaseService<Word> {
     List<Word> getHotwords(int start, int num, int sort);
 
-    void saveWords(List<Blog> blogs);
+    void getBlogsWords(List<Blog> blogs);
+    void getBlogWords(Blog blogs);
+
+    List<Word> getWordsByWordHash(String hashcode);
 }

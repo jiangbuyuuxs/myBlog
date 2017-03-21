@@ -24,7 +24,7 @@ import java.util.Set;
 @Service
 public class WordServiceImpl extends BaseServiceImpl<Word> implements WordService {
 
-    class TermWarp{
+    class TermWarp {
         public Term term;
         public int num;
 
@@ -33,6 +33,8 @@ public class WordServiceImpl extends BaseServiceImpl<Word> implements WordServic
             this.num = num;
         }
     }
+
+
     @Autowired
     private WordDao wordDaoImpl;
 
@@ -41,39 +43,59 @@ public class WordServiceImpl extends BaseServiceImpl<Word> implements WordServic
         return wordDaoImpl;
     }
 
-    private Map<String, TermWarp> splitWords(List<Blog> blogs) {
-        StopRecognition fitler = new StopRecognition();
-        fitler.insertStopRegexes(".");
-        Map<String, TermWarp> termNum = new HashMap<String, TermWarp>();
-        for (Blog blog : blogs) {
-            StringBuffer text = new StringBuffer();
-            text.append(blog.getTitle());
-            //TODO 这里的文章内容中包含样式,需要使用正则去掉.或者是在保存的时候进行一次处理.
-            text.append(blog.getTexts());
-            Result result = ToAnalysis.parse(text.toString()).recognition(fitler);
-            List<Term> terms = result.getTerms();
-            for (Term term : terms) {
-                String name = term.getName();
-                if (termNum.containsKey(name)) {
-                    termNum.get(name).num++;
-                } else {
-                    TermWarp termWarp = new TermWarp(term,1);
-                    termNum.put(name, termWarp);
-                }
-            }
-        }
-        return termNum;
+    @Override
+    public void getBlogWords(Blog blog) {
+        StopRecognition filter = new StopRecognition();
+        filter.insertStopRegexes(".");
+        getBlogWords(blog, filter);
     }
 
     @Override
-    public void saveWords(List<Blog> blogs){
-        wordDaoImpl.delAll();
-        Map<String, TermWarp> splitWords = splitWords(blogs);
-        Set<Map.Entry<String, TermWarp>> entries = splitWords.entrySet();
-        for(Map.Entry<String, TermWarp> wordTerm: entries){
+    public List<Word> getWordsByWordHash(String hashcode) {
+        return wordDaoImpl.getWordsByWordHash(hashcode);
+    }
+
+    @Override
+    public void getBlogsWords(List<Blog> blogs) {
+        StopRecognition filter = new StopRecognition();
+        filter.insertStopRegexes(".");
+        for (Blog blog : blogs) {
+            getBlogWords(blog, filter);
+        }
+    }
+
+    private void getBlogWords(Blog blog, StopRecognition filter) {
+        Map<String, TermWarp> termNum = new HashMap<String, TermWarp>();
+        StringBuffer text = new StringBuffer();
+        text.append(blog.getTitle());
+        String blogTexts = blog.getTexts();
+        //这里的文章内容中包含样式,需要使用正则去掉
+        //blogTexts.replaceAll("<[^>]*>", "");
+        blogTexts = blogTexts.replaceAll("<[^>]*>|&quot;|&lt;|/*+&gt;|&nbsp;", "");
+        text.append(blogTexts);
+        Result result = ToAnalysis.parse(text.toString()).recognition(filter);
+        List<Term> terms = result.getTerms();
+        //统计各个词汇的次数
+        for (Term term : terms) {
+            String name = term.getName();
+            if (termNum.containsKey(name)) {
+                termNum.get(name).num++;
+            } else {
+                TermWarp termWarp = new TermWarp(term, 1);
+                termNum.put(name, termWarp);
+            }
+        }
+        saveWords(blog.getId(), termNum);
+    }
+
+    private void saveWords(long blogid, Map<String, TermWarp> termNum) {
+        wordDaoImpl.delWordsByBlogid(blogid);
+        Set<Map.Entry<String, TermWarp>> entries = termNum.entrySet();
+        for (Map.Entry<String, TermWarp> wordTerm : entries) {
             String name = wordTerm.getKey();
             TermWarp termWarp = wordTerm.getValue();
             Word word = new Word();
+            word.setBlogid(blogid);
             word.setNum(termWarp.num);
             word.setRemark(name);
             word.setType(termWarp.term.getNatureStr());
@@ -81,8 +103,10 @@ public class WordServiceImpl extends BaseServiceImpl<Word> implements WordServic
             wordDaoImpl.add(word);
         }
     }
+
+
     @Override
-    public List<Word> getHotwords(int start,int num,int sort) {
+    public List<Word> getHotwords(int start, int num, int sort) {
         List<Word> words = wordDaoImpl.getWords(start, num, "desc");
         return words;
     }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -33,9 +34,11 @@ public class IndexController {
         List<Blog> blogs = blogsService.getBlogs(0, pageNum, null, true);
         int blogNums = blogsService.getBlogNums();
         List<Blog> hotBlogs = blogsService.getHotBlogs(5);
+        List<Word> hotwords = wordService.getHotwords(0, 15, 0);
         map.addAttribute("blogs", blogs);
         map.addAttribute("blogNums", blogNums);
         map.addAttribute("hotBlogs", hotBlogs);
+        map.addAttribute("hotwords", hotwords);
         return "/index";
     }
 
@@ -83,20 +86,15 @@ public class IndexController {
         return "/detail";
     }
 
-    @RequestMapping(value = {"/hotwords"})
-    public String hotwords(ModelMap map) {
-        List<Word> hotwords = wordService.getHotwords(0, 20, 1);
-        map.addAttribute("hotwords", hotwords);
-        return "/hotwords";
-    }
-
-    @ResponseBody
-    @RequestMapping(value = {"/chw"})
-    public String hotwords() {
-        int blogNums = blogsService.getBlogNums();
-        List<Blog> blogs = blogsService.getBlogs(0, blogNums, null, true);
-        wordService.saveWords(blogs);
-        return "zhizhizhi";
+    @RequestMapping(value = {"/hotword/{hashcode}/id"})
+    public String hotwords(ModelMap map,@PathVariable String hashcode) {
+        List<Word> wordsByWordHash = wordService.getWordsByWordHash(hashcode);
+        List<Blog> blogs = new ArrayList<Blog>();
+        for(Word word:wordsByWordHash){
+            blogs.add(blogsService.getById(word.getBlogid()));
+        }
+        map.addAttribute("blogs",blogs);
+        return "/hotword";
     }
 
     @ResponseBody

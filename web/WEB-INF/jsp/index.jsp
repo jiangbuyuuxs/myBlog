@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <title></title>
+    <title>叟页</title>
     <%@include file="comm/head.jsp" %>
     <link rel="stylesheet" type="text/css" href="/resources/css/index.css">
     <script>
@@ -13,7 +13,7 @@
                 var pageSize = 10;//TODO 从后端取
                 var curPage = 1;
                 var pageNum = 0;
-                if (blogNums <= pageSize) {
+                if (blogNums < pageSize) {
                     $(".page-bar").hide();
                     return;
                 }
@@ -151,16 +151,9 @@
             </div>
             <div class="row">
                 <div class="blog-tag">
-                    <a href="/detail/1/id">爱爱爱</a>
-                    <a href="/detail/1/id">搜索神马</a>
-                    <a href="/detail/1/id">到底谁是X</a>
-                    <a href="/detail/1/id">方法论是说的啥</a>
-                    <a href="/detail/1/id">FFF团烧火</a>
-                    <a href="/detail/1/id">爱A爱A爱</a>
-                    <a href="/detail/1/id">搜DD索</a>
-                    <a href="/detail/1/id">aa到底</a>
-                    <a href="/detail/1/id">asd方法</a>
-                    <a href="/detail/1/id">FFF</a>
+                    <c:forEach items="${hotwords}" var="hotword">
+                        <a href="/hotword/${hotword.hashcode}/id">${hotword.remark}</a>
+                    </c:forEach>
                 </div>
             </div>
             <div class="row sp20"></div>
