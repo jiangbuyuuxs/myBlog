@@ -57,12 +57,7 @@ public class AdminController {
             blog.setTitle(new SimpleDateFormat("yyyy年MM月dd日HH时m分ss秒").format(now) + "写下的博客");
         blogsService.addBlog(blog);
         final Blog blog2 = blog;
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                wordService.getBlogWords(blog2);
-            }
-        }).run();
+        new Thread(() -> wordService.getBlogWords(blog2)).start();
         return "{\"success\": true}";
     }
     @ResponseBody

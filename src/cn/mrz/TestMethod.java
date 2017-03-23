@@ -2,6 +2,8 @@ package cn.mrz;
 
 import org.junit.Test;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * Created by Administrator on 2017/3/21.
  */
@@ -18,5 +20,39 @@ public class TestMethod {
                 String replaceAll = text.replaceAll("<[^>]*>|&quot;|&lt;|/*+&gt;|&nbsp;", "");
 
         System.out.println(replaceAll);
+    }
+
+    @Test
+    public void testConcurrentHashMap() {
+        for(int i=0;i<200;i++){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    double floor = Math.floor(Math.random() * 10);
+                    System.out.println(floor);
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        }
+        System.out.println("over..........................");
+    }
+
+}
+class TestClass{
+    private ConcurrentHashMap<String,Integer> map = new ConcurrentHashMap<String,Integer>();
+    public void add(String key){
+        Integer value = map.get(key);
+        if(value==null){
+            map.put(key,1);
+        }else{
+            map.put(key,value+1);
+        }
+    }
+    public int size(){
+        return map.size();
     }
 }
