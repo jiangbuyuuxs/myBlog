@@ -24,6 +24,7 @@ public class AdminController {
     private BlogsService blogsService;
     @Resource
     private WordService wordService;
+
     /**
      * /admin/*需要登录
      *
@@ -41,12 +42,13 @@ public class AdminController {
     }
 
     @RequestMapping(value = {"/admin/{id}/edit"})
-    public String goEditBlog(ModelMap map,@PathVariable long id) {
+    public String goEditBlog(ModelMap map, @PathVariable long id) {
         Blog blog = blogsService.getById(id);
         map.addAttribute("oper", "修改博文");
         map.addAttribute("blog", blog);
         return "/admin/editpage";
     }
+
     @ResponseBody
     @RequestMapping(value = "/admin/addblog")
     public String addBlogs(Blog blog) {
@@ -60,6 +62,7 @@ public class AdminController {
         new Thread(() -> wordService.getBlogWords(blog2)).start();
         return "{\"success\": true}";
     }
+
     @ResponseBody
     @RequestMapping(value = "/admin/editblog")
     public String editBlogs(Blog blog) {
@@ -70,12 +73,9 @@ public class AdminController {
         blog.setCdate(oldBlog.getCdate());
         blogsService.addBlog(blog);
         final Blog blog2 = blog;
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                wordService.getBlogWords(blog2);
-            }
-        }).run();
+        new Thread(() -> {
+            wordService.getBlogWords(blog2);
+        }).start();
         return "{\"success\": true}";
     }
 }

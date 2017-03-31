@@ -7,7 +7,7 @@
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security.xsd">
 
-       <security:http auto-config="true">
+       <security:http auto-config="true" entry-point-ref="loginUrlAuthenticationEntryPoint">
               <!-- 表示匿名用户可以访问-->
               <!--<security:intercept-url pattern="/go/logon" access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
               <!--<security:intercept-url pattern="/admin/*" access="ROLE_ADMIN"/>-->
@@ -16,8 +16,8 @@
               <!--<security:intercept-url pattern="/resources/**" access="true"/>-->
               <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
               <!--<security:intercept-url pattern="/**" access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')"/>-->
-              <security:form-login login-page="/go/logon"
-                                   login-processing-url="/login"
+              <!--login-page="/go/logon"-->
+              <security:form-login login-processing-url="/login"
                                    username-parameter="username"
                                    password-parameter="password"
                                    authentication-success-handler-ref="authSuccess"/>
@@ -28,6 +28,11 @@
 
        </security:http>
 
+       <bean id="loginUrlAuthenticationEntryPoint" class="cn.mrz.security.MyLoginUrlAuthenticationEntryPoint">
+              <!--额4.x中修改了-->
+              <!--<property name="loginFormUrl" value="/go/logon" />-->
+              <constructor-arg name="loginFormUrl"  value="/go/logon" />
+       </bean>
        <!-- 认证成功后的处理类-->
        <bean id="authSuccess" class="cn.mrz.security.AuthenticationSuccessHandlerImpl"/>
 
