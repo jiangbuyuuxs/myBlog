@@ -22,7 +22,7 @@ public class AuthoritiesDaoImpl extends BaseDaoImpl<Authorities> implements Auth
     @Override
     public List<Authorities> getAuthoritiesByUsername(String username) {
         Session session = currentSession();
-        List<Authorities> queryList = session.createQuery("from Authorities authorities where Authorities.username=:username").setParameter("username", username).list();
+        List<Authorities> queryList = session.createQuery("from Authorities authorities where authorities.username=:username").setParameter("username", username).list();
         if(queryList.size()==0)
             return new ArrayList<>();
         else

@@ -34,20 +34,26 @@
               <constructor-arg name="loginFormUrl"  value="/go/logon" />
        </bean>
        <!-- 认证成功后的处理类-->
-       <bean id="authSuccess" class="cn.mrz.security.AuthenticationSuccessHandlerImpl"/>
+       <bean id="authSuccess" class="cn.mrz.security.AuthenticationSuccessHandlerImpl" />
 
+       <!---->
+       <bean id="myUserDetailService" class="cn.mrz.security.MyUserDetailsService" />
        <security:authentication-manager alias="authenticationManager">
-              <security:authentication-provider>
-                     <!-- 基于Jdbc的UserDetailsService实现，JdbcDaoImpl -->
-                     <security:jdbc-user-service data-source-ref="c3p0ds"/>
+              <security:authentication-provider user-service-ref="myUserDetailService">
+                     <!--加密后的md5为小写-->
+                     <security:password-encoder hash="md5"></security:password-encoder>
               </security:authentication-provider>
+              <!--<security:authentication-provider>-->
+                     <!--&lt;!&ndash; 基于Jdbc的UserDetailsService实现，JdbcDaoImpl &ndash;&gt;-->
+                     <!--<security:jdbc-user-service data-source-ref="c3p0ds" />-->
+              <!--</security:authentication-provider>-->
        </security:authentication-manager>
-       <!--<security:authentication-manager>
-              <security:authentication-provider>
-                     <security:user-service>
-                            <security:user name="user" password="user" authorities="ROLE_USER"/>
-                            <security:user name="admin" password="admin" authorities="ROLE_USER, ROLE_ADMIN"/>
-                     </security:user-service>
-              </security:authentication-provider>
-       </security:authentication-manager>-->
+<!--<security:authentication-manager>
+       <security:authentication-provider>
+              <security:user-service>
+                     <security:user name="user" password="user" authorities="ROLE_USER"/>
+                     <security:user name="admin" password="admin" authorities="ROLE_USER, ROLE_ADMIN"/>
+              </security:user-service>
+       </security:authentication-provider>
+</security:authentication-manager>-->
 </beans>

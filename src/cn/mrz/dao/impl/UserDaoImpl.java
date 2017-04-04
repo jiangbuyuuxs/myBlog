@@ -12,10 +12,11 @@ import java.util.List;
  */
 @Repository
 public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
+
     @Override
     public User getUserByUsername(String username) {
         Session session = currentSession();
-        List<User> list = session.createQuery("from Users users where Users.username=:username").setParameter("username", username).list();
+        List<User> list = session.createQuery("from User users where users.username=:username").setParameter("username", username).list();
         if(list.size()==0)
             return null;
         else
@@ -25,7 +26,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
     @Override
     public User has(long id) {
         Session session = currentSession();
-        List<User> list = session.createQuery("from Users users where Users.id=:id").setParameter("id", id).list();
+        List<User> list = session.createQuery("from User users where users.id=:id").setParameter("id", id).list();
         if(list.size()==0)
             return null;
         else

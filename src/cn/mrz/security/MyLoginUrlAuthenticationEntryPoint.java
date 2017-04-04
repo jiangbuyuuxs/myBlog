@@ -26,20 +26,25 @@ public class MyLoginUrlAuthenticationEntryPoint extends LoginUrlAuthenticationEn
 
     private String getUrlFromRequest(HttpServletRequest request) {
         StringBuffer url = new StringBuffer();
-        url.append("http://");
-        url.append(request.getServerName());
-        url.append(":");
-        url.append(request.getServerPort());
-        String contextPath = request.getContextPath();
-        contextPath = "".equals(contextPath)?"":contextPath+"/";
-        url.append(contextPath);
-        url.append(request.getServletPath());
-        String pathInfo = request.getPathInfo();
-        pathInfo = pathInfo==null?"":pathInfo;
-        url.append(pathInfo);
-        String queryString = request.getQueryString();
-        queryString = queryString==null?"":queryString;
-        url.append(queryString);
+        try {
+            url.append("http://");
+            url.append(request.getServerName());
+            url.append(":");
+            url.append(request.getServerPort());
+            String contextPath = request.getContextPath();
+            contextPath = "".equals(contextPath) ? "" : contextPath + "/";
+            url.append(contextPath);
+            url.append(request.getServletPath());
+            String pathInfo = request.getPathInfo();
+            pathInfo = pathInfo == null ? "" : pathInfo;
+            url.append(pathInfo);
+            String queryString = request.getQueryString();
+            queryString = queryString == null ? "" : queryString;
+            url.append(queryString);
+        }catch(Exception e){
+            System.out.println("异常的页面跳转到登录页面");
+            return "";
+        }
         return url.toString();
     }
 }
