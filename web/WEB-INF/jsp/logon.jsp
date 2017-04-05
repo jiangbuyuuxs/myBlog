@@ -1,3 +1,4 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -21,7 +22,7 @@
             <label for="username" class="col-sm-2 control-label">用户名</label>
 
             <div class="col-sm-2">
-                <input type="text" class="form-control" name="username" id="username" placeholder="用户名">
+                <input type="text" class="form-control" name="username" id="username" value="<sec:authentication property="name"/>" placeholder="用户名">
             </div>
         </div>
         <div class="form-group">
@@ -36,14 +37,14 @@
                 <p>${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}</p>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group hidden">
             <div class="col-sm-offset-2 col-sm-2">
                 <input type="text" class="form-control" name="returnUrl" id="returnUrl" value="${sessionScope.get("returnUrl")}">
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-2">
-                <button type="submit" class="btn btn-default">入入</button>
+                <button type="submit" class="btn btn-default">登录</button>
                 <button type="reset" class="btn btn-default">取消</button>
             </div>
         </div>

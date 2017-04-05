@@ -30,6 +30,8 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         //            }
         //        }
         String returnUrl = request.getParameter("returnUrl");
+        if(null==returnUrl||"".equals(returnUrl))
+            returnUrl = "/";
         response.sendRedirect(returnUrl);
         //response.sendRedirect("/");
     }

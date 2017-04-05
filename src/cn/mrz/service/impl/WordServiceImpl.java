@@ -43,6 +43,7 @@ public class WordServiceImpl extends BaseServiceImpl<Word> implements WordServic
         return wordDaoImpl;
     }
 
+    //TODO 分词这里还需要过滤一下空白的字符?换行?
     @Override
     public void getBlogWords(Blog blog) {
         StopRecognition filter = new StopRecognition();
