@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>入入入</title>
+    <title>登录</title>
     <%@include file="comm/head.jsp" %>
     <style>
         .logon-panel{margin-top:50px;}
@@ -20,9 +20,8 @@
     <form class="form-horizontal" action="/login" method="post">
         <div class="form-group">
             <label for="username" class="col-sm-2 control-label">用户名</label>
-
             <div class="col-sm-2">
-                <input type="text" class="form-control" name="username" id="username" value="<sec:authentication property="name"/>" placeholder="用户名">
+                <input type="text" class="form-control" name="username" id="username" logoned="<sec:authentication property="name"/>" placeholder="用户名">
             </div>
         </div>
         <div class="form-group">

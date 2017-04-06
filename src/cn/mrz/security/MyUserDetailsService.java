@@ -1,7 +1,7 @@
 package cn.mrz.security;
 
 import cn.mrz.dao.AuthoritiesDao;
-import cn.mrz.dao.UserDao;
+import cn.mrz.dao.UsersDao;
 import cn.mrz.pojo.Authorities;
 import cn.mrz.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import java.util.List;
 public class MyUserDetailsService implements UserDetailsService {
 
     @Autowired
-    public UserDao userDao;
+    public UsersDao userDao;
     @Autowired
     public AuthoritiesDao authoritiesDao;
 

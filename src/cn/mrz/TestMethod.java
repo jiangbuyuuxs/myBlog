@@ -1,6 +1,7 @@
 package cn.mrz;
 
 import org.junit.Test;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -23,8 +24,10 @@ public class TestMethod {
     }
 
     @Test
-    public void testE() {
-
+    public void testEncode() {
+        Md5PasswordEncoder md5PasswordEncoder = new Md5PasswordEncoder();
+        String admin = md5PasswordEncoder.encodePassword("admin", null);
+        System.out.println(admin);
     }
 
 }

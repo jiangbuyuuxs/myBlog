@@ -5,8 +5,7 @@
 <html lang="zh-CN">
 <head>
     <title>textBlog</title>
-    <%@include file="comm/head.jsp" %>
-    <link rel="stylesheet" type="text/css" href="/resources/css/index.css">
+    <%@include file="../../comm/head.jsp" %>
     <script>
         $(function () {
             var createPagebar = function (blogNums) {
@@ -35,17 +34,20 @@
                 }
 
                 function changePage() {
-                    var page = $(this).attr("data-page");
+                    var page = parseInt($(this).attr("data-page"));
                     _changePage(page);
                 }
 
                 function _changePage(page) {
-                    if (page < 1 || page > pageNum || page === curPage)
+                    if (page < 1 || page > pageNum || page === curPage) {
                         return;
+                    }
+//                    $("a[aria-label=Previous]").removeClass("hidden");
+//                    $("a[aria-label=Next]").removeClass("hidden");
                     var order = 0;//TODO 获取排序条件
                     //ajax请求
                     $.ajax({
-                        url: "blog/" + page + "/page/" + order + "/order",
+                        url: "/blog/" + page + "/page/" + order + "/order",
                         dataType: "json",
                         success: function (data) {
                             recreateBlogList(data.data);
@@ -57,6 +59,12 @@
                         complete: function () {
                             $(".pagination li.active").removeClass("active");
                             $("a[data-page=" + curPage + "]").parent().addClass("active");
+//                            if (curPage == 1) {
+//                                $("a[aria-label=Previous]").addClass("hidden");
+//                            }
+//                            if (curPage == pageNum) {
+//                                $("a[aria-label=Next]").addClass("hidden");
+//                            }
                         }
                     })
                 }
@@ -66,33 +74,20 @@
                 $(".blog-list").empty();
                 for (var i = 0, len = data.length; i < len; i++) {
                     $('<div class="row">' +
-                    '<div class="col-lg-9 col-md-9 col-sm-9 col-xs-8 title"><a title="' + data[i].title + '" href="/detail/' + data[i].id + '/id">' + data[i].title + '</a></div>' +
+                    '<div class="col-lg-9 col-md-9 col-sm-9 col-xs-8 title">[<a href="/blog/' + data[i].id + '/del">删除</a>]<a target="_blank" title="' + data[i].title + '" href="/admin/blog/' + data[i].id + '/edit">' + data[i].title + '</a></div>' +
                     '<div class="col-lg-3 col-md-3 col-sm-3 col-xs-4">' + data[i].cdate + '</div>' +
                     '</div>').appendTo($(".blog-list"));
                 }
-                setTitleBg();
-            }
-
-            function setTitleBg() {
-                $(".blog-list .row").addClass(function () {
-                    return "line" + (Math.floor((Math.random() * 4)) + 1);
-                });
             }
 
             createPagebar(${blogNums});
-            setTitleBg();
         });
     </script>
 </head>
 <body>
 <div class="container">
-    <div class="row index-head-img">
-        &nbsp;
-    </div>
-    <div class="hidden">
-        <a class="btn btn-default" href="/admin/add">写一篇</a>
-        <a class="btn btn-default" href="/admin/admin">后台</a>
-        <a class="btn btn-default" href="/go/about">关于</a>
+    <div class="row">
+        <a class="btn btn-success" href="/admin/blog/go/add" target="_blank">写博文</a>
     </div>
     <div class="row">
         <div class="col-lg-10 col-md-9 col-sm-12 col-xs-12 left-panel">
@@ -103,8 +98,10 @@
             <div class="blog-list">
                 <c:forEach items="${blogs}" var="blog">
                     <div class="row">
-                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-8 title"><a title="${blog.title}"
-                                                                                  href="/detail/${blog.id}/id">${blog.title}</a>
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-8 title">
+                            [<a href="/blog/${blog.id}/del">删除</a>]
+                            <a title="${blog.title}" target="_blank"
+                               href="/admin/blog/${blog.id}/edit">${blog.title}</a>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4"><fmt:formatDate value="${blog.cdate}"
                                                                                          pattern="yyyy-MM-dd HH:mm:ss"/></div>
@@ -126,48 +123,6 @@
                         </li>
                     </ul>
                 </nav>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-2 hidden-xs hidden-sm col-sm-0 col-xs-0 right-panel">
-            <div class="row sp20"></div>
-            <div class="row">
-                <div class="head-img-container">
-                </div>
-            </div>
-            <div class="row">
-                <div class="user-name">
-                    Mrz
-                </div>
-            </div>
-            <div class="row sp20"></div>
-            <div class="row">
-                <div class="remark">
-                    滴滴答答的敲代码
-                </div>
-            </div>
-            <div class="row sp20"></div>
-            <div class="row sp20 fav-word-title">
-                最喜欢用的词囧囧囧
-            </div>
-            <div class="row">
-                <div class="blog-tag">
-                    <c:forEach items="${hotwords}" var="hotword">
-                        <a href="/hotword/${hotword.hashcode}/id">${hotword.remark}</a>
-                    </c:forEach>
-                </div>
-            </div>
-            <div class="row sp20"></div>
-            <div class="row sp20 hot-blog-title">
-                热门博文
-            </div>
-            <div class="row">
-                <div class="top-blog">
-                    <div class="top-blog-list">
-                        <c:forEach items="${hotBlogs}" var="hotBlog">
-                            <p><a href="/detail/${hotBlog.id}/id">${hotBlog.title}</a></p>
-                        </c:forEach>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

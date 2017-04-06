@@ -1,6 +1,6 @@
 package cn.mrz.dao.impl;
 
-import cn.mrz.dao.UserDao;
+import cn.mrz.dao.UsersDao;
 import cn.mrz.pojo.User;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
@@ -11,7 +11,7 @@ import java.util.List;
  * Created by Administrator on 2017/4/1.
  */
 @Repository
-public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
+public class UsersDaoImpl extends BaseDaoImpl<User> implements UsersDao {
 
     @Override
     public User getUserByUsername(String username) {

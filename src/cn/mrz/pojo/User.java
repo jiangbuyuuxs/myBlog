@@ -1,9 +1,11 @@
 package cn.mrz.pojo;
 
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -14,7 +16,8 @@ import javax.persistence.Table;
 @Table(name = "users")
 public class User {
     @Id
-    private Integer id;
+    @GenericGenerator(name="username",strategy = "assigned")
+    @GeneratedValue(generator="username")
     private String username;
     private String nickname;
     private String password;

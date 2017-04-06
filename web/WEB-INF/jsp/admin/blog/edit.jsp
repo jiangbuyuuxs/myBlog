@@ -13,7 +13,7 @@
     <script type="text/javascript" charset="utf-8" src="/resources/ueditor/ueditor.config.js"></script>
     <script type="text/javascript" charset="utf-8" src="/resources/ueditor/ueditor.all.js"></script>
     <script type="text/javascript" charset="utf-8" src="/resources/ueditor/lang/zh-cn/zh-cn.js"></script>
-    <%@include file="../comm/head.jsp" %>
+    <%@include file="../../comm/head.jsp" %>
     <script>
         $(function () {
             var ue = UE.getEditor('editor');
@@ -28,7 +28,7 @@
                     var blogid = $(".blogid").val(),
                             titleVal = $(".title").val();
                     if (isNaN(parseInt(blogid))) {
-                        $.ajax("/admin/addblog", {
+                        $.ajax("/admin/blog/add", {
                             type: "POST",
                             dataType: "json",
                             data: {
@@ -44,7 +44,7 @@
                             }
                         });
                     } else {
-                        $.ajax("/admin/editblog", {
+                        $.ajax("/admin/blog/edit", {
                             type: "POST",
                             dataType: "json",
                             data: {
@@ -73,13 +73,11 @@
     </script>
 </head>
 <body>
-<%@include file="../comm/loginstatebar.jsp" %>
+<%@include file="../../comm/loginstatebar.jsp" %>
 <div class="container">
-    <div class="form-group">
-        <label for="blogid">id</label>
-        <input type="text" id="blogid" class="blogid form-control" name="blogid" placeholder="编号"
-               value="${blog.id}">
-    </div>
+    <input type="hidden" id="blogid" class="blogid form-control" name="blogid" placeholder="编号"
+           value="${blog.id}">
+
     <div class="form-group">
         <label for="classtype">分类</label>
         <input type="text" id="classtype" class="classtype form-control" name="classtype" placeholder="类型"
