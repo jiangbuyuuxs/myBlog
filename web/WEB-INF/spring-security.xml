@@ -15,6 +15,7 @@
               <!--<security:intercept-url pattern="/go/logon" access="true"/>-->
               <!--<security:intercept-url pattern="/resources/**" access="true"/>-->
               <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+              <security:intercept-url pattern="/cy/**" access="true"/>
               <!--<security:intercept-url pattern="/**" access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')"/>-->
               <!--login-page="/go/logon"-->
               <security:form-login login-processing-url="/login"
