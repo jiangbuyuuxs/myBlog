@@ -28,7 +28,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
         getBaseDao().upd(t);
     }
 
-    public void del(T t) {
-        getBaseDao().del(t);
+    public boolean del(T t) {
+        return getBaseDao().del(t);
     }
 }

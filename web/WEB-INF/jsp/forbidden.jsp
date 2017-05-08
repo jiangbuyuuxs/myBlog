@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>403</title>
-    <%@include file="comm/head.jsp" %>
+    <%@include file="comm/jscss.jsp" %>
     <style>
         .warning-panel{margin:100px;}
     </style>

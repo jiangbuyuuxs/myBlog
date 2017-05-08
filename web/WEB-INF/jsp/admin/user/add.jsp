@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>添加用户</title>
-    <%@include file="../../comm/head.jsp" %>
+    <%@include file="../../comm/jscss.jsp" %>
 </head>
 <body>
 <div class="container logon-panel">

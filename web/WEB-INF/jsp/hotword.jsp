@@ -4,7 +4,7 @@
 <html>
 <head>
     <title>热词搜索页</title>
-    <%@include file="comm/head.jsp" %>
+    <%@include file="comm/jscss.jsp" %>
 </head>
 <body class="container">
 <div>

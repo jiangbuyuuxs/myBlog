@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>系统信息</title>
-    <%@include file="../comm/head.jsp" %>
+    <%@include file="../comm/jscss.jsp" %>
 </head>
 <body>
 <div class="container">

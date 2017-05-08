@@ -7,5 +7,5 @@ public interface BaseService<T> {
     public T getById(long id);
     T add(T t);
     void upd(T t);
-    void del(T t);
+    boolean del(T t);
 }

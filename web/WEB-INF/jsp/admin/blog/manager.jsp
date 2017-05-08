@@ -5,7 +5,7 @@
 <html lang="zh-CN">
 <head>
     <title>textBlog</title>
-    <%@include file="../../comm/head.jsp" %>
+    <%@include file="../../comm/jscss.jsp" %>
     <script>
         $(function () {
             var createPagebar = function (blogNums) {

@@ -9,7 +9,7 @@
 <html>
 <head>
   <title>错误</title>
-  <%@include file="comm/head.jsp" %>
+  <%@include file="comm/jscss.jsp" %>
   <script>
     $(function(){
       $(".back").bind("click",function(){

@@ -8,5 +8,5 @@ public interface BaseDao<T> {
     int getCount();
     T add(T t);
     void upd(T t);
-    void del(T t);
+    boolean del(T t);
 }

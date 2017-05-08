@@ -10,7 +10,7 @@
 <html lang="zh-CN">
 <head>
     <title>博文显示</title>
-  <%@include file="comm/head.jsp" %>
+  <%@include file="comm/jscss.jsp" %>
   <style>
     .highlight {
       padding: 9px 14px;

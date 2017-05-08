@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>成语</title>
-    <%@include file="../comm/head.jsp" %>
+    <%@include file="../comm/jscss.jsp" %>
     <style>
         .next-cy-item{
             cursor: hand;

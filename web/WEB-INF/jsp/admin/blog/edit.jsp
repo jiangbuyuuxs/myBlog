@@ -13,7 +13,7 @@
     <script type="text/javascript" charset="utf-8" src="/resources/ueditor/ueditor.config.js"></script>
     <script type="text/javascript" charset="utf-8" src="/resources/ueditor/ueditor.all.js"></script>
     <script type="text/javascript" charset="utf-8" src="/resources/ueditor/lang/zh-cn/zh-cn.js"></script>
-    <%@include file="../../comm/head.jsp" %>
+    <%@include file="../../comm/jscss.jsp" %>
     <script>
         $(function () {
             var ue = UE.getEditor('editor');
@@ -73,7 +73,6 @@
     </script>
 </head>
 <body>
-<%@include file="../../comm/loginstatebar.jsp" %>
 <div class="container">
     <input type="hidden" id="blogid" class="blogid form-control" name="blogid" placeholder="编号"
            value="${blog.id}">

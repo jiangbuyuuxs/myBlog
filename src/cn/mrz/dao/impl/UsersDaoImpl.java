@@ -1,7 +1,9 @@
 package cn.mrz.dao.impl;
 
 import cn.mrz.dao.UsersDao;
+import cn.mrz.pojo.Blog;
 import cn.mrz.pojo.User;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
@@ -21,6 +23,16 @@ public class UsersDaoImpl extends BaseDaoImpl<User> implements UsersDao {
             return null;
         else
             return list.get(0);
+    }
+
+    @Override
+    public List<User> getUsers(int start, int num, int sortBy) {
+        Session session = currentSession();
+        Query query = session.createQuery("from User order by username").setCacheable(true);
+        query.setFirstResult(start);
+        query.setMaxResults(num);
+        List<User> list = query.list();
+        return list;
     }
 
     @Override

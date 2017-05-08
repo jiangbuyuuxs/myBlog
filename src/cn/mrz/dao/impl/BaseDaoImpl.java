@@ -4,6 +4,7 @@ import cn.mrz.dao.BaseDao;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate4.HibernateCallback;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 
@@ -45,8 +46,14 @@ public abstract class BaseDaoImpl<T> extends HibernateDaoSupport implements Base
         return t;
     }
 
-    public void del(T t) {
-        this.getHibernateTemplate().delete(t);
+    public boolean del(T t) {
+        try {
+            this.getHibernateTemplate().delete(t);
+        }catch (DataAccessException e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     public void upd(T t) {

@@ -11,4 +11,5 @@ import java.util.List;
 public interface UsersService extends BaseService<User> {
     boolean addUser(User user);
     User getUserByUsername(String username);
+    List<User> getUsers(int start,int num,int sortBy);
 }

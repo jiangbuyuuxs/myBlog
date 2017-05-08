@@ -5,7 +5,7 @@
 <html lang="zh-CN">
 <head>
     <title>textBlog</title>
-    <%@include file="comm/head.jsp" %>
+    <%@include file="comm/jscss.jsp" %>
     <link rel="stylesheet" type="text/css" href="/resources/css/index.css">
     <script>
         $(function () {
@@ -125,5 +125,6 @@
         </div>
     </div>
 </div>
+<%@include file="comm/footer.jsp" %>
 </body>
 </html>

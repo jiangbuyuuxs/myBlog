@@ -6,6 +6,7 @@ import org.springframework.security.web.authentication.LoginUrlAuthenticationEnt
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -17,10 +18,21 @@ public class MyLoginUrlAuthenticationEntryPoint extends LoginUrlAuthenticationEn
         super(loginFormUrl);
     }
 
+    /**
+     * 当访问了需要登录才能访问的页面时,会执行到此处
+     * @param request
+     * @param response
+     * @param authException
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+
         String returnUrl = getUrlFromRequest(request);
-        request.getSession().setAttribute("returnUrl", returnUrl);
+        HttpSession session = request.getSession();
+        //session.removeAttribute("returnUrl");
+        session.setAttribute("returnUrl", returnUrl);
         super.commence(request, response, authException);
     }
 
