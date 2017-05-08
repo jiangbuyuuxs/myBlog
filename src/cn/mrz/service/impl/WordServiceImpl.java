@@ -107,7 +107,7 @@ public class WordServiceImpl extends BaseServiceImpl<Word> implements WordServic
 
 
     @Override
-    public List<Word> getHotwords(int start, int num, int sort) {
+    public List<Word> getHotWords(int start, int num, int sort) {
         List<Word> words = wordDaoImpl.getWords(start, num, "desc");
         return words;
     }

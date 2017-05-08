@@ -91,8 +91,8 @@ public class BlogsServiceImpl extends BaseServiceImpl<Blog> implements BlogsServ
         ArrayList<Blog> blogs = new ArrayList<Blog>();
         for (Visit hotBlog : hotBlogs) {
             long blogid = hotBlog.getBlogid();
-            Blog has = blogDaoImpl.has(blogid);
-            blogs.add(has);
+            Blog hotblogs = blogDaoImpl.has(blogid);
+            blogs.add(new Blog(hotblogs.getId(),hotblogs.getTitle(), hotblogs.getCdate(), hotblogs.getEdate(),hotblogs.getImgid(),hotblogs.getClasstype()));
         }
         return blogs;
     }

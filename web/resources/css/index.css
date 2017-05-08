@@ -8,7 +8,7 @@ a:hover {
     color: #dcdcdc;
 }
 
-.title {
+.padding2px {
     padding: 2px;
 }
 
@@ -63,7 +63,7 @@ a:hover {
     background: #fcf8e3;
 }
 
-.line4 {
+.line0 {
     background: #c5f1f3;
 }
 
@@ -91,7 +91,7 @@ a:hover {
     border: solid 1px #cecece;
     word-break: keep-all;
     padding: 1px;
-    margin: 0 0 3px 0;
+    margin: 0 2px 3px 0;
     display: inline-block;
 }
 

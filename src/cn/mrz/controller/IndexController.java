@@ -31,14 +31,29 @@ public class IndexController {
 
     @RequestMapping(value = {"/", "index", "home"})
     public String goIndex(ModelMap map) {
-        List<Blog> blogs = blogsService.getBlogs(0, pageNum, null, true);
+        List<Blog> blogs = blogsService.getBlogs(0, pageNum, null, false);
         int blogNums = blogsService.getBlogNums();
         List<Blog> hotBlogs = blogsService.getHotBlogs(5);
-        List<Word> hotwords = wordService.getHotwords(0, 15, 0);
-        map.addAttribute("blogs", blogs);
+        List<Word> hotWords = wordService.getHotWords(0, 15, 0);
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd mm:HH:ss"));
+        String blogsJson;
+        String hotBlogsJson;
+        String hotWordsJson;
+        try {
+            blogsJson = mapper.writeValueAsString(blogs);
+            hotBlogsJson = mapper.writeValueAsString(hotBlogs);
+            hotWordsJson = mapper.writeValueAsString(hotWords);
+        } catch (IOException e) {
+            blogsJson = "{\"success\": false,\"msg\",\"获取信息失败\"}";
+            hotBlogsJson = "{\"success\": false,\"msg\",\"获取热门博文失败\"}";
+            hotWordsJson = "{\"success\": false,\"msg\",\"获取热词失败\"}";
+        }
+        map.addAttribute("blogs", blogsJson);
         map.addAttribute("blogNums", blogNums);
-        map.addAttribute("hotBlogs", hotBlogs);
-        map.addAttribute("hotwords", hotwords);
+        map.addAttribute("hotBlogs", hotBlogsJson);
+        map.addAttribute("hotWords", hotWordsJson);
         return "/index";
     }
 

@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Administrator on 2017/3/16.
  */
 public interface WordService extends BaseService<Word> {
-    List<Word> getHotwords(int start, int num, int sort);
+    List<Word> getHotWords(int start, int num, int sort);
 
     void getBlogsWords(List<Blog> blogs);
     void getBlogWords(Blog blogs);

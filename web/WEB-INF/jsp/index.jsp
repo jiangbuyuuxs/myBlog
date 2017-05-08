@@ -9,78 +9,46 @@
     <link rel="stylesheet" type="text/css" href="/resources/css/index.css">
     <script>
         $(function () {
-            var createPagebar = function (blogNums) {
-                var pageSize = 10;//TODO 从后端取
-                var curPage = 1;
-                var pageNum = 0;
-                if (blogNums < pageSize) {
-                    $(".page-bar").hide();
-                    return;
-                }
-                pageNum = Math.ceil(blogNums / pageSize), i = 1;
-                for (; i <= pageNum; i++) {
-                    $("<li><a href='#' data-page='" + i + "'>" + i + "</a></li>").insertBefore($(".pagination li:last"));
-                }
-                $(".pagination li:eq(1)").addClass("active");
-                $("a[data-page]").on("click", changePage);
-                $("a[aria-label=Previous]").on("click", prePage);
-                $("a[aria-label=Next]").on("click", nextPage);
+            var pageSize = 10;//TODO 从后端取
+            var pageNum = ${blogNums};
+            pageNum = Math.ceil(pageNum / pageSize);
 
-                function prePage() {
-                    _changePage(curPage - 1);
-                }
+            var blogPanel = new Vue({
+                el: '.container',
+                data: {
+                    blogs:${blogs},
+                    pageNum: pageNum,
+                    curPage: 1,
+                    hotBlogs:${hotBlogs},
+                    hotWords:${hotWords}
+                },
 
-                function nextPage() {
-                    _changePage(curPage + 1);
-                }
+                methods: {
+                    prePage: function () {
+                        this._changePage(this.curPage - 1);
+                    },
 
-                function changePage() {
-                    var page = $(this).attr("data-page");
-                    _changePage(page);
-                }
+                    nextPage: function () {
+                        this._changePage(this.curPage + 1);
+                    },
 
-                function _changePage(page) {
-                    if (page < 1 || page > pageNum || page === curPage)
-                        return;
-                    var order = 0;//TODO 获取排序条件
-                    //ajax请求
-                    $.ajax({
-                        url: "blog/" + page + "/page/" + order + "/order",
-                        dataType: "json",
-                        success: function (data) {
-                            recreateBlogList(data.data);
-                            curPage = page;
-                        },
-                        error: function (data) {
+                    changePage: function (page) {
+                        this._changePage(page);
+                    },
+                    _changePage: function (page) {
+                        if (page < 1 || page > pageNum || page === this.curPage)
+                            return;
+                        var order = 0;//TODO 获取排序条件
+                        var url = "blog/" + page + "/page/" + order + "/order";
+                        this.$http.get(url).then(function(data){
+                            this.blogs = data.data.data;
+                            this.curPage = page;
+                        },function(response){
                             console.log(data.msg);
-                        },
-                        complete: function () {
-                            $(".pagination li.active").removeClass("active");
-                            $("a[data-page=" + curPage + "]").parent().addClass("active");
-                        }
-                    })
+                        });
+                    }
                 }
-            };
-
-            function recreateBlogList(data) {
-                $(".blog-list").empty();
-                for (var i = 0, len = data.length; i < len; i++) {
-                    $('<div class="row">' +
-                    '<div class="col-lg-9 col-md-9 col-sm-9 col-xs-8 title"><a title="' + data[i].title + '" href="/detail/' + data[i].id + '/id">' + data[i].title + '</a></div>' +
-                    '<div class="col-lg-3 col-md-3 col-sm-3 col-xs-4">' + data[i].cdate + '</div>' +
-                    '</div>').appendTo($(".blog-list"));
-                }
-                setTitleBg();
-            }
-
-            function setTitleBg() {
-                $(".blog-list .row").addClass(function () {
-                    return "line" + (Math.floor((Math.random() * 4)) + 1);
-                });
-            }
-
-            createPagebar(${blogNums});
-            setTitleBg();
+            });
         });
     </script>
 </head>
@@ -95,37 +63,26 @@
         <a class="btn btn-default" href="/go/about">关于</a>
     </div>
     <div class="row">
-        <div class="col-lg-10 col-md-9 col-sm-12 col-xs-12 left-panel">
+        <div class="col-lg-10 col-md-9 col-sm-12 col-xs-12 blog-panel">
             <div class="row blog-list-head">
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-8 title">标题</div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4">发布时间</div>
             </div>
             <div class="blog-list">
-                <c:forEach items="${blogs}" var="blog">
-                    <div class="row">
-                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-8 title"><a title="${blog.title}"
-                                                                                  href="/detail/${blog.id}/id">${blog.title}</a>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4"><fmt:formatDate value="${blog.cdate}"
-                                                                                         pattern="yyyy-MM-dd HH:mm:ss"/></div>
+                <div v-for="(blog,index) in blogs" :class="'row line'+index%4">
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-8 padding2px"><a :title="blog.title"
+                                                                                   :href="'/detail/'+blog.id+'/id'">{{blog.title}}</a>
                     </div>
-                </c:forEach>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4 padding2px">{{blog.cdate}}</div>
+                </div>
             </div>
             <div class="page-bar">
-                <nav aria-label="Page navigation">
-                    <ul class="pagination">
-                        <li>
-                            <a href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                <ul class="pagination">
+                    <li><a href="#" @click="prePage"><span>&laquo;</span></a></li>
+                    <li v-for="i in pageNum" :class="{active:i===curPage}"><a href="#" @click="changePage(i)"
+                                                                              :data-page="i">{{i}}</a></li>
+                    <li><a href="#" @click="nextPage"><span>&raquo;</span></a></li>
+                </ul>
             </div>
         </div>
         <div class="col-lg-2 col-md-2 hidden-xs hidden-sm col-sm-0 col-xs-0 right-panel">
@@ -151,9 +108,7 @@
             </div>
             <div class="row">
                 <div class="blog-tag">
-                    <c:forEach items="${hotwords}" var="hotword">
-                        <a href="/hotword/${hotword.hashcode}/id">${hotword.remark}</a>
-                    </c:forEach>
+                    <a v-for="hotword in hotWords" :href="'/hotword/'+hotword.hashcode+'/id'">{{hotword.remark}}</a>
                 </div>
             </div>
             <div class="row sp20"></div>
@@ -163,9 +118,7 @@
             <div class="row">
                 <div class="top-blog">
                     <div class="top-blog-list">
-                        <c:forEach items="${hotBlogs}" var="hotBlog">
-                            <p><a href="/detail/${hotBlog.id}/id">${hotBlog.title}</a></p>
-                        </c:forEach>
+                        <p v-for="hotBlog in hotBlogs"><a :href="'/detail/'+hotBlog.id+'/id'">{{hotBlog.title}}</a></p>
                     </div>
                 </div>
             </div>
