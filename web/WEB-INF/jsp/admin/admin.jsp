@@ -11,6 +11,9 @@
     <title>后台</title>
     <%@include file="../comm/jscss.jsp" %>
     <style>
+        body{
+            background: #76c7ce;
+        }
         .adminwin {
             border: 1px solid #dddddd;
             border-radius: 4px;
@@ -28,6 +31,9 @@
         }
         .add-blog {
             font-size: 12px;
+        }
+        #admin-manager{
+            min-height: 700px;
         }
     </style>
     <script type="text/x-template" id="blog-info-template">
@@ -294,5 +300,6 @@
         </div>
     </div>
 </div>
+    <%@include file="../comm/footer.jsp" %>
 </body>
 </html>

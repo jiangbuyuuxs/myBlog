@@ -5,7 +5,21 @@ a {
 
 a:hover {
     text-decoration: none;
-    color: #dcdcdc;
+    color: #ff5442;
+}
+body{
+    background: #353535;
+}
+
+.main-panel{
+    background: #cdcdcd;
+}
+.right-panel{
+    padding: 0 40px;
+}
+
+.right-panel .right-container{
+    width:90%;
 }
 
 .padding2px {
@@ -14,7 +28,7 @@ a:hover {
 
 .index-head-img {
     line-height: 200px;
-    margin: 10px -15px;
+    margin: 10px 0px;
     border: 1px solid #aaaaaa;
     background-image: url("/resources/img/index.jpg");
     transition: -ms-transform 0.2s ease-out;
@@ -32,52 +46,34 @@ a:hover {
 }
 
 .blog-list {
-    min-height: 400px;
+    min-height: 378px;
 }
 
 .blog-list .row {
     margin: 10px 0px;
     padding: 2px;
-    border-radius: 3px;
+    border-bottom:1px dotted #2f2f2f;
+}
+
+.blog-panel{
+    padding:0 30px;
 }
 
 .blog-list-head {
     margin: 5px 0 0 0;
 }
 
-.left-panel {
-}
-
-.right-panel {
-}
-
-.line1 {
-    background: #dff0d8;
-}
-
-.line2 {
-    background: #d9edf7;
-}
-
-.line3 {
-    background: #fcf8e3;
-}
-
-.line0 {
-    background: #c5f1f3;
-}
-
 .user-name {
     text-align: center;
 }
 
-.sp20 {
-    height: 20px;
+.sp25 {
+    height: 25px;
 }
 
-.fav-word-title {
-    background: #d9edf7;
-    border-radius: 5px;
+.column-title {
+    font-weight: bold;
+    border-bottom: 3px solid #ff5442;
 }
 
 .blog-tag {
@@ -85,23 +81,22 @@ a:hover {
 }
 
 .blog-tag a {
-    color: #c2c2c2;
-    font: 12px "微软雅黑";
+    color: #1b0f0d;
+    font: 13px "微软雅黑";
     border-radius: 5px;
-    border: solid 1px #cecece;
+    border: solid 1px #cea885;
     word-break: keep-all;
-    padding: 1px;
+    padding: 2px;
     margin: 0 2px 3px 0;
     display: inline-block;
+}
+.blog-tag a:hover{
+    background: #ff5442;
+    transform:scaleX(1.2) scaleY(1.2);
 }
 
 .remark {
     margin: 0 10px;
-}
-
-.hot-blog-title{
-    background: rgba(255, 86, 66, 0.63);
-    border-radius: 5px;
 }
 
 .top-blog-list {
@@ -109,25 +104,13 @@ a:hover {
 }
 
 .top-blog-list p {
-    margin: 2px;
+    margin: 6px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size:12px ;
-    border-bottom: 1px solid rgba(175, 97, 128, 0.73);
+    border-bottom: 1px solid #AF6180;
 }
-@media (min-width: 768px) {
-    .top-blog-list p {
-        width: 160px;
-    }
-}
-@media (min-width: 992px) {
-    .top-blog-list p {
-        width: 180px;
-    }
-}
-@media (min-width: 1200px) {
-    .top-blog-list p {
-        width: 180px;
-    }
+.page-bar .pagination{
+    margin:5px 0;
 }

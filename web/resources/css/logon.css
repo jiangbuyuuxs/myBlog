@@ -1,0 +1,29 @@
+body{
+    background: #76c7ce;
+}
+.container {
+    margin-top: 50px;
+}
+.logon-panel,.logined-panel{
+    background: rgba(255, 117, 93, 0.70);
+    border-radius: 5px;
+    padding-top:20px;
+    min-height: 240px;
+}
+.other-logon-list{
+    background: rgba(206, 60, 25, 0.2);
+    border-radius: 5px;
+    min-height: 240px;
+    text-align: center;
+    padding:10px 0;
+}
+.forget-pw,.forget-pw:hover{
+    color:#000;
+    font-size: 12px;
+    text-decoration: none;
+    padding: 10px 0;
+    display: inline-block;
+}
+.logined-username{
+    font-weight: bold;
+}

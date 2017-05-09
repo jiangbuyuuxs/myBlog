@@ -6,3 +6,4 @@
 <script type="text/javascript" src="/resources/js/comm.js"></script>
 <script type="text/javascript" src="/resources/bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/resources/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="/resources/css/comm.css">

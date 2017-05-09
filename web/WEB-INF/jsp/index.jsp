@@ -14,7 +14,7 @@
             pageNum = Math.ceil(pageNum / pageSize);
 
             var blogPanel = new Vue({
-                el: '.container',
+                el: '.main-panel',
                 data: {
                     blogs:${blogs},
                     pageNum: pageNum,
@@ -52,28 +52,23 @@
         });
     </script>
 </head>
-<body>
-<div class="container">
+<body class="container">
+<div class="main-panel">
     <div class="row index-head-img">
         &nbsp;
     </div>
-    <div class="hidden">
-        <a class="btn btn-default" href="/admin/add">写一篇</a>
-        <a class="btn btn-default" href="/admin/admin">后台</a>
-        <a class="btn btn-default" href="/go/about">关于</a>
-    </div>
     <div class="row">
-        <div class="col-lg-10 col-md-9 col-sm-12 col-xs-12 blog-panel">
+        <div class="col-lg-9 col-md-8 col-sm-12 col-xs-12 blog-panel">
             <div class="row blog-list-head">
-                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-8 title">标题</div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4">发布时间</div>
+                <div class="col-lg-10 col-md-9 col-sm-9 col-xs-8 title">标题</div>
+                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4">发布时间</div>
             </div>
             <div class="blog-list">
-                <div v-for="(blog,index) in blogs" :class="'row line'+index%4">
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-8 padding2px"><a :title="blog.title"
+                <div v-for="(blog,index) in blogs" class="row">
+                    <div class="col-lg-10 col-md-9 col-sm-9 col-xs-8 padding2px"><a :title="blog.title"
                                                                                    :href="'/detail/'+blog.id+'/id'">{{blog.title}}</a>
                     </div>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4 padding2px">{{blog.cdate}}</div>
+                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 padding2px">{{blog.cdate}}</div>
                 </div>
             </div>
             <div class="page-bar">
@@ -85,9 +80,10 @@
                 </ul>
             </div>
         </div>
-        <div class="col-lg-2 col-md-2 hidden-xs hidden-sm col-sm-0 col-xs-0 right-panel">
-            <div class="row sp20"></div>
-            <div class="row">
+        <div class="col-lg-3 col-md-4 hidden-xs hidden-sm right-panel">
+            <div class="right-container">
+            <div class="row sp25"></div>
+            <div class="row hidden">
                 <div class="head-img-container">
                 </div>
             </div>
@@ -96,23 +92,23 @@
                     Mrz
                 </div>
             </div>
-            <div class="row sp20"></div>
+            <div class="row sp25"></div>
             <div class="row">
                 <div class="remark">
                     滴滴答答的敲代码
                 </div>
             </div>
-            <div class="row sp20"></div>
-            <div class="row sp20 fav-word-title">
-                最喜欢用的词囧囧囧
+            <div class="row sp25"></div>
+            <div class="row sp25 column-title">
+                最喜欢用的词
             </div>
             <div class="row">
                 <div class="blog-tag">
                     <a v-for="hotword in hotWords" :href="'/hotword/'+hotword.hashcode+'/id'">{{hotword.remark}}</a>
                 </div>
             </div>
-            <div class="row sp20"></div>
-            <div class="row sp20 hot-blog-title">
+            <div class="row sp25"></div>
+            <div class="row sp25 column-title">
                 热门博文
             </div>
             <div class="row">
@@ -123,8 +119,9 @@
                 </div>
             </div>
         </div>
+        </div>
     </div>
 </div>
-<%@include file="comm/footer.jsp" %>
+    <%@include file="comm/footer.jsp" %>
 </body>
 </html>

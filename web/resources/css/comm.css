@@ -1,0 +1,15 @@
+.float-nav{
+    position: absolute;
+    left:5px;
+    top:100px;
+    background: #cecece;
+    border:1px solid #cecd80;
+    border-radius: 5px;
+}
+.copyright {
+    padding-top: 10px;
+    background: transparent;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+}

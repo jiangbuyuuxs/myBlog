@@ -11,47 +11,39 @@
 <head>
     <title>登录</title>
     <%@include file="comm/jscss.jsp" %>
-    <style>
-        body{
-            background: #76c7ce;
-        }
-        .container {
-            margin-top: 50px;
-        }
-        .logon-panel{
-            background: rgba(255, 117, 93, 0.70);
-            border-radius: 5px;
-            padding-top:20px;
-            min-height: 240px;
-        }
-        .other-place{
-            border-radius: 5px;
-        }
-        .other-logon-list{
-            background: rgba(206, 60, 25, 0.2);
-            border-radius: 5px;
-            min-height: 240px;
-            text-align: center;
-            padding:10px 0;
-        }
-        .forget-pw,.forget-pw:hover{
-            color:#000;
-            font-size: 12px;
-            text-decoration: none;
-            padding: 10px 0;
-            display: inline-block;
-        }
-    </style>
+    <link rel="stylesheet" href="/resources/css/logon.css">
+    <script>
+        $(function () {
+           var logonUsername = "<sec:authentication property="name"/>";
+            if(logonUsername!="anonymousUser"){
+                $(".logined-username").text(logonUsername);
+                $(".logon-panel").hide();
+                $(".logined-panel").show();
+            }else{
+                $(".logined-panel").hide();
+            }
+
+            $(".logout").one("click",function(){
+                $.ajax("/logout",{
+                    data:{isAjax:true},
+                    success: function (data) {
+                        $(".logon-panel").show();
+                        $(".logined-panel").hide();
+                    }
+                });
+            });
+        });
+    </script>
 </head>
 <body>
 <div class="container">
     <div class="row">
         <div class="col-lg-2 left-panel">
-            <div class="other-place list-group">
-                    <span href="#" class="list-group-item active">其他去处</span>
-                    <a class="list-group-item" href="/">首页</a>
-                    <a class="list-group-item" href="/cy/cyjl">成语接龙</a>
-            </div>
+
+        </div>
+        <div class="col-lg-6 logined-panel">
+            <p>当前已登录,登录用户为<span class="logined-username"></span></p>
+            <p>是否<a class="btn btn-danger btn-xs logout" href="#">退出</a>,或者<a class="btn btn-success btn-xs" href="javascript:history.go(-1);">返回</a></p>
         </div>
         <div class="col-lg-6 logon-panel">
             <form class="form-horizontal" action="/login" method="post">
@@ -59,7 +51,7 @@
                     <label for="username" class="col-sm-3 control-label">用户名</label>
 
                     <div class="col-sm-7">
-                        <input type="text" class="form-control" name="username" id="username"
+                        <input type="text" class="form-control" name="username" id="username" value="admin"
                                logoned="<sec:authentication property="name"/>" placeholder="用户名">
                     </div>
                 </div>
@@ -67,7 +59,7 @@
                     <label for="password" class="col-sm-3 control-label">密码</label>
 
                     <div class="col-sm-7">
-                        <input type="password" class="form-control" name="password" id="password" placeholder="咒语">
+                        <input type="password" class="form-control" name="password" id="password" value="admin" placeholder="咒语">
                         <a class="forget-pw" href="/go/forget">忘记密码</a>
                     </div>
                 </div>
@@ -95,7 +87,7 @@
             </div>
         </div>
     </div>
-
+<%@include file="comm/footer.jsp" %>
 </div>
 </body>
 </html>
