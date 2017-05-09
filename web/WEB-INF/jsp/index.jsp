@@ -43,7 +43,7 @@
                         this.$http.get(url).then(function(data){
                             this.blogs = data.data.data;
                             this.curPage = page;
-                        },function(response){
+                        },function(data){
                             console.log(data.msg);
                         });
                     }

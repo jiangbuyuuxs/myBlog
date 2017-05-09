@@ -38,7 +38,7 @@ public class UsersDaoImpl extends BaseDaoImpl<User> implements UsersDao {
     @Override
     public User has(long id) {
         Session session = currentSession();
-        List<User> list = session.createQuery("from User users where users.id=:id").setParameter("id", id).list();
+        List<User> list = session.createQuery("from User users where users.id=:id").setCacheable(true).setParameter("id", id).list();
         if(list.size()==0)
             return null;
         else

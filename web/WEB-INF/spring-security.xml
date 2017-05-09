@@ -19,6 +19,7 @@
               <!--<security:intercept-url pattern="/**" access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')"/>-->
               <!--login-page="/go/logon"-->
               <security:form-login login-processing-url="/login"
+                                   authentication-failure-url="/go/logon"
                                    username-parameter="username"
                                    password-parameter="password"
                                    authentication-success-handler-ref="authSuccess"/>

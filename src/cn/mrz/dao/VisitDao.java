@@ -9,4 +9,10 @@ import java.util.List;
  */
 public interface VisitDao extends BaseDao<Visit>{
     List<Visit> getHotBlog(int num);
+
+    /**
+     * 总访问人数
+     * @return
+     */
+    int getVisitCount();
 }

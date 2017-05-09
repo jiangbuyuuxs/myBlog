@@ -33,4 +33,10 @@ public class VisitDaoImpl extends BaseDaoImpl<Visit> implements VisitDao {
         List<Visit> list = query.list();
         return list;
     }
+
+    @Override
+    public int getVisitCount() {
+        Session session = currentSession();
+        return ((Long)session.createQuery("select sum(visit.num) from Visit visit").uniqueResult()).intValue();
+    }
 }

@@ -63,7 +63,7 @@ public abstract class BaseDaoImpl<T> extends HibernateDaoSupport implements Base
     public int getCount() {
         Object obj = this.getHibernateTemplate().execute(new HibernateCallback() {
             public Object doInHibernate(Session session) throws HibernateException {
-                return session.createQuery("select count(1) from " + className).uniqueResult();
+                return session.createQuery("select count(1) from " + className).setCacheable(true).uniqueResult();
             }
         });
         return (int) ((Long) obj).longValue();

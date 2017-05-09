@@ -1,12 +1,12 @@
 package cn.mrz.pojo;
 
 
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cache;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
@@ -14,6 +14,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "users")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User {
     @Id
     @GenericGenerator(name="username",strategy = "assigned")
