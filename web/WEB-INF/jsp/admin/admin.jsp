@@ -37,7 +37,7 @@
         }
     </style>
     <script type="text/x-template" id="blog-info-template">
-        <table class="table table-striped">
+        <table class="table">
             <tbody>
             <tr>
                 <td>博文总数</td>
@@ -56,7 +56,7 @@
 
     </script>
     <script type="text/x-template" id="user-manager-template">
-        <table class="table table-striped">
+        <table class="table">
             <tbody>
             <tr>
                 <th>操作</th>
@@ -83,7 +83,7 @@
                 Loading...
             </div>
             <div class="blog-list">
-                <table class="table table-striped">
+                <table class="table">
                     <tbody>
                     <tr>
                         <th width="10%">操作</th>
@@ -242,9 +242,6 @@
         var router = new VueRouter({routes: routes});
         var adminManager = new Vue({
                     el: "#admin-manager",
-                    data: {
-                        userinfo: {}
-                    },
                     router
                 }
         );
