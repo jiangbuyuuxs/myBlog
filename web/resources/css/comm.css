@@ -1,5 +1,5 @@
 .float-nav{
-    position: absolute;
+    position: fixed;
     left:5px;
     top:100px;
     background: #cecece;

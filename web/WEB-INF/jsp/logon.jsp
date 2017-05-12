@@ -47,6 +47,7 @@
         </div>
         <div class="col-lg-6 logon-panel">
             <form class="form-horizontal" action="/login" method="post">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <div class="form-group">
                     <label for="username" class="col-sm-3 control-label">用户名</label>
 

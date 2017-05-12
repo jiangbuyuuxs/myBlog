@@ -16,24 +16,21 @@ import java.io.PrintWriter;
 public class MyLogoutHandler extends AbstractAuthenticationTargetUrlRequestHandler implements LogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        String isAjax = request.getParameter("isAjax");
+
         //不用返回首页了
-        if(isAjax!=null){
-            response.setCharacterEncoding("UTF-8");
-            response.setContentType("application/json; charset=utf-8");
-            PrintWriter out = null;
-            try {
-                out = response.getWriter();
-                out.append("{\"success\":true}");
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (out != null) {
-                    out.close();
-                }
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json; charset=utf-8");
+        PrintWriter out = null;
+        try {
+            out = response.getWriter();
+            out.append("{\"success\":true}");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (out != null) {
+                out.close();
             }
-        }else{
-            super.handle(request, response, authentication);
         }
+//            super.handle(request, response, authentication);
     }
 }

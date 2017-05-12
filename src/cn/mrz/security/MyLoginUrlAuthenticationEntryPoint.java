@@ -19,7 +19,7 @@ public class MyLoginUrlAuthenticationEntryPoint extends LoginUrlAuthenticationEn
     }
 
     /**
-     * 当访问了需要登录才能访问的页面时,会执行到此处
+     * 当未登录时,访问了需要登录才能访问的页面时,会执行到此处
      * @param request
      * @param response
      * @param authException
@@ -29,9 +29,10 @@ public class MyLoginUrlAuthenticationEntryPoint extends LoginUrlAuthenticationEn
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
 
+
         String returnUrl = getUrlFromRequest(request);
+        //TODO 这里需要判断一下这个无法访问的,到底是一个合法的路径还是一个数据接口.如果是一个数据接口,就这么放进去,登录之后一脸懵逼
         HttpSession session = request.getSession();
-        //session.removeAttribute("returnUrl");
         session.setAttribute("returnUrl", returnUrl);
         super.commence(request, response, authException);
     }

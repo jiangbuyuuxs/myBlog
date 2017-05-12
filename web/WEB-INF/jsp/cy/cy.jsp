@@ -49,11 +49,14 @@
             }
 
             function getNextCy(cy) {
+                var val = $("#logoutParam").val();
+                var name = $("#logoutParam").attr("name");
+                var data = BlogTool.addCSRFToken({cy: cy},name,val);
                 if (cy && cy.length > 2) {
                     $.ajax("/cy/cy/cy", {
                         type: "POST",
                         dataType: "json",
-                        data: {cy: cy},
+                        data: data,
                         success: function (data) {
                             $(".next-cy").empty();
                             if (data.success) {
@@ -130,5 +133,6 @@
         <ul class="nexted-cy"></ul>
     </div>
 </div>
+<%@include file="../comm/footer.jsp"%>
 </body>
 </html>

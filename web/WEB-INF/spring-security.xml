@@ -24,9 +24,10 @@
                                    password-parameter="password"
                                    authentication-success-handler-ref="authSuccess"/>
               <!--Could not verify the provided CSRF token because your session was not found.-->
-              <security:csrf disabled="true" />
+              <!--<security:csrf disabled="true" />-->
               <security:access-denied-handler error-page="/go/forbidden" />
 
+              <!--启用CSRF需要POST方式退出登录-->
               <security:logout logout-url="/logout" success-handler-ref="myLogoutHandler"/>
               <!--<security:logout logout-url="/logout" logout-success-url="/" />-->
               <!--Spring Security禁止嵌入iframe,为每个页面设置了请求头X-Frame-Options为deny,通过页面写meta标签并没有什么x用-->
@@ -45,7 +46,7 @@
        <!-- 认证成功后的处理类-->
        <bean id="authSuccess" class="cn.mrz.security.AuthenticationSuccessHandlerImpl" />
 
-       <!---->
+       <!--自定义的用户信息-->
        <bean id="myUserDetailService" class="cn.mrz.security.MyUserDetailsService" />
        <security:authentication-manager alias="authenticationManager">
               <security:authentication-provider user-service-ref="myUserDetailService">
