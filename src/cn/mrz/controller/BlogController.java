@@ -86,15 +86,18 @@ public class BlogController {
             return "{\"success\": false}";
         }
         Blog oldBlog = blogsService.getById(blog.getId());
+        if (null == oldBlog) {
+            return "{\"success\": false}";
+        }
         Date now = new Date(System.currentTimeMillis());
-        blog.setEdate(now);
-        blog.setClasstype(oldBlog.getClasstype());
-        blog.setCdate(oldBlog.getCdate());
-        blogsService.addBlog(blog);
+        oldBlog.setEdate(now);
+        oldBlog.setClasstype(blog.getClasstype());
+        oldBlog.setTexts(blog.getTexts());
+        oldBlog.setTitle(blog.getTitle());
+        oldBlog.setImgid(blog.getImgid());
+        blogsService.upd(oldBlog);
         final Blog blog2 = blog;
-        new Thread(() -> {
-            wordService.getBlogWords(blog2);
-        }).start();
+        new Thread(() -> {wordService.getBlogWords(blog2);}).start();
         return "{\"success\": true}";
     }
 }

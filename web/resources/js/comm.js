@@ -25,9 +25,7 @@
     window['BlogTool']['checkLogin'] = checkLogin;
 
     function logout(){
-        var val = $("#logoutParam").val();
-        var name = $("#logoutParam").attr("name");
-        var csrfData = addCSRFToken({},name,val)
+        var csrfData = addCSRFToken();
         $.ajax("/logout", {
             type:"POST",
             data:csrfData,
@@ -52,7 +50,10 @@
     function alert1(msg,opt){
         alert(msg);
     }
-    function addCSRFToken(data,name,val){
+    function addCSRFToken(data){
+        var data = data||{};
+        var val = $("#csrfParam").val();
+        var name = $("#csrfParam").attr("name");
         data[name] = val;
         return data;
     }

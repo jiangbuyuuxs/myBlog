@@ -49,9 +49,7 @@
             }
 
             function getNextCy(cy) {
-                var val = $("#logoutParam").val();
-                var name = $("#logoutParam").attr("name");
-                var data = BlogTool.addCSRFToken({cy: cy},name,val);
+                var data = BlogTool.addCSRFToken({cy: cy});
                 if (cy && cy.length > 2) {
                     $.ajax("/cy/cy/cy", {
                         type: "POST",

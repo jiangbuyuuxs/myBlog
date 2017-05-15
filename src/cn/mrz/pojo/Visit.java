@@ -11,6 +11,8 @@ import javax.persistence.Id;
  * Created by Administrator on 2017/3/15.
  */
 @Entity
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Visit {
 
     @Id

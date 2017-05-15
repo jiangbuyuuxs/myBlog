@@ -71,8 +71,8 @@ public class IndexController {
         } catch (NumberFormatException e) {
             return "{\"success\": false,\"msg\",\"页码非法\"}";
         }
-        int start = (pageI - 1) * pageNum + 1;
-        List<Blog> blogs = blogsService.getBlogs(start, pageNum, order, false);
+        int start = (pageI - 1) * pageNum;
+        List<Blog> blogs = blogsService.getBlogs(start, pageNum, null, false);
         ObjectMapper mapper = new ObjectMapper();
         mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd mm:HH:ss"));
         String blogData = null;

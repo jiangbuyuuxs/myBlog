@@ -28,35 +28,39 @@
                     var blogid = $(".blogid").val(),
                             titleVal = $(".title").val();
                     if (isNaN(parseInt(blogid))) {
+                        var data = {
+                            title: titleVal,
+                            texts: content
+                        };
+                        data = BlogTool.addCSRFToken(data);
                         $.ajax("/admin/blog/add", {
                             type: "POST",
                             dataType: "json",
-                            data: {
-                                title: titleVal,
-                                texts: content
-                            },
+                            data: data,
                             success: function (data) {
                                 console.log(data);
                                 if (data.success) {
                                     alert("写了一篇~~~~~");
-                                    window.location.href = "http://localhost:8080";
+                                    window.location.href = "/";
                                 }
                             }
                         });
                     } else {
+                        var data = {
+                            id: blogid,
+                            title: titleVal,
+                            texts: content
+                        };
+                        data = BlogTool.addCSRFToken(data);
                         $.ajax("/admin/blog/edit", {
                             type: "POST",
                             dataType: "json",
-                            data: {
-                                id: blogid,
-                                title: titleVal,
-                                texts: content
-                            },
+                            data: data,
                             success: function (data) {
                                 console.log(data);
                                 if (data.success) {
                                     alert("修改了一篇~~~~~");
-                                    window.location.href = "http://localhost:8080/detail/" + blogid + "/id";
+                                    window.location.href = "/detail/" + blogid + "/id";
                                 }
                             },
                             error: function (XMLHttpRequest, textStatus) {
@@ -91,8 +95,8 @@
     </div>
     <input type="button" class="send button btn-success" value="发布"/>
     <script id="blogtexts" type="text/html">${blog.texts}</script>
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </div>
-
-
+<%@include file="../../comm/footer.jsp" %>
 </body>
 </html>
