@@ -20,8 +20,7 @@
 * 前台页面  
   首页 /  
   登录页面 /go/logon  
-  登出url /logout  
-  博文详情 /detail/{id}/id  
+  博文详情 /detail/{id}/id
   热词详情 /hotword/{id}/id
 
 * 后台  

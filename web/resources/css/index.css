@@ -14,6 +14,61 @@ body{
 .main-panel{
     background: #cdcdcd;
 }
+
+
+
+.head-bar{
+    min-height: 50px;
+    border:none;
+    margin-bottom: 0;
+}
+.hide-header{
+    min-height: 50px;
+}
+
+
+
+.hide-header{
+    display: none;
+}
+.pc .head-bar,.mobile #head-bar-container{
+    position: fixed;
+    top:0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    opacity: 0.8;
+    height: 40px;
+    transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+    border-radius: 0;
+}
+.pc .hide-header{
+    display: block;
+}
+
+.mobile .hide-header {
+    display: block;
+}
+.mobile .head-bar .nav{
+    top:50px;
+}
+
+
+
+
+.head-bar .navbar-nav > li > a{
+    border-bottom: solid 4px #ffffff;
+    padding-bottom: 0;
+    height: 50px;
+}
+.head-bar .navbar-nav > li > a:hover{
+    border-bottom: solid 4px #ff5442;
+    background: rgba(206, 206, 206, 0.5);
+    color:#ffffff;
+}
+
+
 .right-panel{
     padding: 0 40px;
 }

@@ -9,6 +9,42 @@
     <link rel="stylesheet" type="text/css" href="/resources/css/index.css">
     <script>
         $(function () {
+
+            var isMobile = checkMobile();
+
+            function checkMobile (){
+                return $('.head-bar-open-btn').css('display')=='block';
+            }
+
+            $(window).on('scroll', function () {
+                changeHeadBarPostionByScroll();
+            });
+
+            $(window).on('resize', function () {
+                isMobile = checkMobile();
+                changeHeadBarPosition();
+                changeHeadBarPostionByScroll();
+            });
+            changeHeadBarPosition();
+
+            function changeHeadBarPostionByScroll(){
+                if($('body').scrollTop()>0&&!isMobile){
+                    $('.head-panel').addClass('pc');
+                }else if(!isMobile){
+                    $('.head-panel').removeClass('pc');
+                }
+            }
+
+            function changeHeadBarPosition(){
+                if(checkMobile()){
+                    //移动模式
+                    $('.head-panel').addClass('mobile');
+                }else{
+                    $('.head-panel').removeClass('mobile');
+                }
+            }
+
+
             var pageSize = 10;//TODO 从后端取
             var pageNum = ${blogNums};
             pageNum = Math.ceil(pageNum / pageSize);
@@ -53,6 +89,27 @@
     </script>
 </head>
 <body class="container">
+<div class="head-panel">
+    <div class="navbar navbar-default" id="head-bar-container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed pull-left head-bar-open-btn glyphicon glyphicon-th-large" data-toggle="collapse" data-target=".head-bar-collapse"></button>
+        </div>
+        <div class="collapse navbar-collapse head-bar-collapse">
+            <nav class="navbar navbar-default head-bar">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">首页</a></li>
+                    <li><a href="/cy/cyjl">成语接龙</a></li>
+                    <li><a href="/blog/list">博客列表</a></li>
+                    <li><a href="/go/logon">登录</a></li>
+                    <li><a href="/admin/go/admin#/info">管理员</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="hide-header">
+        <!--占位用的.防止滚动抖动-->&nbsp;
+    </div>
+</div>
 <div class="main-panel">
     <div class="row index-head-img">
         &nbsp;
@@ -121,6 +178,32 @@
         </div>
         </div>
     </div>
+</div>
+<div class="other">
+    <p>ssssssssss</p>
+    <p>ssssssssss</p>
+    <p>ssssssssss</p>
+    <p>ssssssssss</p>
+    <p>ssssssssss</p>
+    <p>ssssssssss</p>
+    <p>ssssssssss</p>
+    <p>ssssssssss</p>
+    <p>ssssssssss</p>
+    <p>ssssssssss</p>
+    <p>ssssssssss</p>
+    <p>ssssssssss</p>
+    <p>ssssssssss</p>
+    <p>ssssssssss</p>
+    <p>ssssssssss</p>
+    <p>ssssssssss</p>
+    <p>ssssssssss</p>
+    <p>ssssssssss</p>
+    <p>ssssssssss</p>
+    <p>ssssssssss</p>
+    <p>ssssssssss</p>
+    <p>ssssssssss</p>
+    <p>ssssssssss</p>
+    <p>ssssssssss</p>
 </div>
     <%@include file="comm/footer.jsp" %>
 </body>
