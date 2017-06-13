@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -35,10 +36,12 @@ public class CyController {
 
     @ResponseBody
     @RequestMapping(value = {"/cy/cy/cy"}, produces = {"application/json;charset=UTF-8"})
-    public String getCy(HttpServletRequest request) {
+    public String getCy(@RequestParam(required = false) String cy) {
+        if(cy==null){
+            cy = "自力更生";
+        }
         //TODO 这里是可以按照参数输入来减少一步sql查询的.
         String json = "{\"success\":false}";
-        String cy = request.getParameter("cy");
         if (cy != null && cy.trim().length() > 2) {
             Cy chenyu = cyDao.getCy(cy);
             if (chenyu != null) {

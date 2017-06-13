@@ -5,7 +5,6 @@ import cn.mrz.dao.WordDao;
 import cn.mrz.pojo.Blog;
 import cn.mrz.pojo.Word;
 import cn.mrz.service.WordService;
-import cn.mrz.task.Hotwords;
 import org.ansj.domain.Result;
 import org.ansj.domain.Term;
 import org.ansj.recognition.impl.StopRecognition;
@@ -66,7 +65,7 @@ public class WordServiceImpl extends BaseServiceImpl<Word> implements WordServic
     }
 
     private void getBlogWords(Blog blog, StopRecognition filter) {
-        Map<String, TermWarp> termNum = new HashMap<String, TermWarp>();
+        Map<String, TermWarp> termNumMap = new HashMap<String, TermWarp>();
         StringBuffer text = new StringBuffer();
         text.append(blog.getTitle());
         String blogTexts = blog.getTexts();
@@ -79,19 +78,19 @@ public class WordServiceImpl extends BaseServiceImpl<Word> implements WordServic
         //统计各个词汇的次数
         for (Term term : terms) {
             String name = term.getName();
-            if (termNum.containsKey(name)) {
-                termNum.get(name).num++;
+            if (termNumMap.containsKey(name)) {
+                termNumMap.get(name).num++;
             } else {
                 TermWarp termWarp = new TermWarp(term, 1);
-                termNum.put(name, termWarp);
+                termNumMap.put(name, termWarp);
             }
         }
-        saveWords(blog.getId(), termNum);
+        saveWords(blog.getId(), termNumMap);
     }
 
-    private void saveWords(long blogid, Map<String, TermWarp> termNum) {
+    private void saveWords(long blogid, Map<String, TermWarp> termNumMap) {
         wordDaoImpl.delWordsByBlogid(blogid);
-        Set<Map.Entry<String, TermWarp>> entries = termNum.entrySet();
+        Set<Map.Entry<String, TermWarp>> entries = termNumMap.entrySet();
         for (Map.Entry<String, TermWarp> wordTerm : entries) {
             String name = wordTerm.getKey();
             TermWarp termWarp = wordTerm.getValue();
